@@ -57,7 +57,6 @@ public class SprintCrouch : MonoBehaviour
     playerFootsteps.volumeMinimum = walkVolumeMin;
     playerFootsteps.volumeMaximum = walkVolumeMax;
   }
-
   void Sprint()
   {
     bool playerHasStamina = sprintValue > 0f;

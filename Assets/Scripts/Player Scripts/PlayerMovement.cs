@@ -5,8 +5,10 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-  private CharacterController characterController;
-  private Vector3 moveDirection;
+  CharacterController characterController;
+  Vector3 moveDirection;
+  InputHandler inputHandler;
+
   public float speed = 5f;
   private float gravity = 20f;
   public float jumpForce = 8f;
@@ -15,16 +17,12 @@ public class PlayerMovement : MonoBehaviour
   private void Awake()
   {
     characterController = GetComponent<CharacterController>();
+    inputHandler = GetComponent<InputHandler>();
   }
 
-  void Update()
+  public void MovePlayer()
   {
-    MovePlayer();
-  }
-
-  void MovePlayer()
-  {
-    moveDirection = new Vector3(Input.GetAxis(Axis.HORIZONTAL), 0f, Input.GetAxis(Axis.VERTICAL));
+    moveDirection = new Vector3(inputHandler.horizontal, 0f, inputHandler.vertical);
     moveDirection = transform.TransformDirection(moveDirection);
     moveDirection *= speed * Time.deltaTime;
 

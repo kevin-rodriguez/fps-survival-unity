@@ -4,22 +4,18 @@ using UnityEngine;
 
 public class MouseLook : MonoBehaviour
 {
+  InputHandler inputHandler;
 
   [SerializeField]
   private Transform playerRoot, lookRoot;
-
   [SerializeField]
   private bool canUnlock = true;
-
   [SerializeField]
-  private float sensitivity = 5f;
-
+  private float sensitivity = 0.5f;
   [SerializeField]
   private int smoothSteps = 10;
-
   [SerializeField]
   private float smoothWeight = 0.4f;
-
   [SerializeField]
   private float rollAngle = 0.5f;
   private float rollSpeed = 3f;
@@ -35,19 +31,12 @@ public class MouseLook : MonoBehaviour
   void Start()
   {
     Cursor.lockState = CursorLockMode.Locked;
+    inputHandler = GetComponentInParent<InputHandler>();
   }
 
-  void Update()
+  public void LookAround()
   {
-    LookAround();
-  }
-
-  void LookAround()
-  {
-    float mouseInputAxisY = Input.GetAxis(MouseAxis.MOUSE_Y);
-    float mouseInputAxisX = Input.GetAxis(MouseAxis.MOUSE_X);
-
-    currentMouseLook = new Vector2(mouseInputAxisY, mouseInputAxisX);
+    currentMouseLook = new Vector2(inputHandler.mouseY, inputHandler.mouseX);
 
     lookAngles.x += currentMouseLook.x * sensitivity * -1;
     lookAngles.y += currentMouseLook.y * sensitivity;
