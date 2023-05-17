@@ -15,7 +15,6 @@ public class WeaponManager : MonoBehaviour
     weapons[currentWeaponIndex].gameObject.SetActive(true);
   }
 
-  // Update is called once per frame
   void Update()
   {
     if (Input.GetKeyDown(KeyCode.Alpha1))

@@ -40,15 +40,19 @@ public class PlayerMovement : MonoBehaviour
   {
     verticalVelocity -= gravity * Time.deltaTime;
 
-    if (isGrounded())
-      PlayerJump();
+    /*if (isGrounded())
+      HandleJump(); */
 
     moveDirection.y = verticalVelocity * Time.deltaTime;
   }
 
-  private void PlayerJump()
+  public void HandleJump()
   {
-    if (isGrounded() && Input.GetKeyDown(KeyCode.Space))
+    print("jump " + inputHandler.jumpInput);
+
+    if (isGrounded() && inputHandler.jumpInput)
+    {
       verticalVelocity = jumpForce;
+    }
   }
 }

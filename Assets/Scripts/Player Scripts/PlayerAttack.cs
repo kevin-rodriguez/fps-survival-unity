@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerAttack : MonoBehaviour
 {
 
+  private InputHandler inputHandler;
   private WeaponManager weaponManager;
   public float fireRate = 50f;
   private float nextTimeToFire;
@@ -27,6 +28,7 @@ public class PlayerAttack : MonoBehaviour
                           .transform.Find(Tags.ZOOM_CAMERA)
                           .GetComponent<Animator>();
     crosshair = GameObject.FindWithTag(Tags.CROSSHAIR);
+    inputHandler = GetComponent<InputHandler>();
     mainCamera = Camera.main;
   }
 
@@ -49,9 +51,7 @@ public class PlayerAttack : MonoBehaviour
 
     if (isSingleFireWeapon)
     {
-      bool primaryMouseButtonClicked = Input.GetMouseButtonDown(0);
-
-      if (primaryMouseButtonClicked)
+      if (inputHandler.attackInput)
       {
         // Handle Axe Attack
         if (currentWeapon.CompareTag(Tags.AXE_TAG))
@@ -83,10 +83,9 @@ public class PlayerAttack : MonoBehaviour
     }
     else
     {
-      bool primaryMouseButtonHold = Input.GetMouseButton(0);
       bool isReadyToFireAgain = Time.time > nextTimeToFire;
 
-      if (primaryMouseButtonHold && isReadyToFireAgain)
+      if (inputHandler.attackInput && isReadyToFireAgain)
       {
         nextTimeToFire = Time.time + 1f / fireRate;
 
@@ -102,17 +101,17 @@ public class PlayerAttack : MonoBehaviour
     WeaponHandler currentWeapon = weaponManager.GetCurrentSelectedWeapon();
     bool weaponCanAim = currentWeapon.weaponAim == WeaponAim.AIM;
     bool weaponNeedAim = currentWeapon.weaponAim == WeaponAim.SELF_AIM;
-    bool isMouseSecodaryClickHold = Input.GetMouseButtonDown(1);
-    bool isMouseSecodaryClickReleased = Input.GetMouseButtonUp(1);
+
+    print(inputHandler.aimInput);
 
     if (weaponCanAim)
     {
-      if (isMouseSecodaryClickHold)
+      if (inputHandler.aimInput)
       {
         zoomCameraAnimator.Play(AnimationTags.ZOOM_IN_AIM);
         crosshair.SetActive(false);
       }
-      if (isMouseSecodaryClickReleased)
+      else
       {
         zoomCameraAnimator.Play(AnimationTags.ZOOM_OUT_AIM);
         crosshair.SetActive(true);
@@ -120,12 +119,12 @@ public class PlayerAttack : MonoBehaviour
     }
     else if (weaponNeedAim)
     {
-      if (isMouseSecodaryClickHold)
+      if (inputHandler.aimInput)
       {
         currentWeapon.Aim(true);
         isAiming = true;
       }
-      if (isMouseSecodaryClickReleased)
+      else
       {
         currentWeapon.Aim(false);
         isAiming = false;
