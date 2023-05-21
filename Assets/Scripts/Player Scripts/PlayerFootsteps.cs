@@ -2,54 +2,57 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerFootsteps : MonoBehaviour
+namespace KR
 {
-  private AudioSource footstepSound;
-  [SerializeField]
-  private AudioClip[] footstepClips;
-  private CharacterController characterController;
-  [HideInInspector]
-  public float volumeMinimum, volumeMaximum;
-  private float accumulatedDistance;
-  [HideInInspector]
-  public float stepDistance;
-
-  void Awake()
+  public class PlayerFootsteps : MonoBehaviour
   {
-    footstepSound = GetComponent<AudioSource>();
-    characterController = GetComponentInParent<CharacterController>();
-  }
+    private AudioSource footstepSound;
+    [SerializeField]
+    private AudioClip[] footstepClips;
+    private CharacterController characterController;
+    [HideInInspector]
+    public float volumeMinimum, volumeMaximum;
+    private float accumulatedDistance;
+    [HideInInspector]
+    public float stepDistance;
 
-  void Update()
-  {
-    CheckToPlayFootstepSound();
-  }
-
-  void CheckToPlayFootstepSound()
-  {
-    if (characterController.isGrounded)
+    void Awake()
     {
-      bool isPlayerMoving = characterController.velocity.sqrMagnitude > 0;
+      footstepSound = GetComponent<AudioSource>();
+      characterController = GetComponentInParent<CharacterController>();
+    }
 
-      if (isPlayerMoving)
+    void Update()
+    {
+      CheckToPlayFootstepSound();
+    }
+
+    void CheckToPlayFootstepSound()
+    {
+      if (characterController.isGrounded)
       {
+        bool isPlayerMoving = characterController.velocity.sqrMagnitude > 0;
 
-        accumulatedDistance += Time.deltaTime;
-
-        if (accumulatedDistance > stepDistance)
+        if (isPlayerMoving)
         {
-          footstepSound.volume = Random.Range(volumeMinimum, volumeMaximum);
-          footstepSound.clip = footstepClips[Random.Range(0, footstepClips.Length)];
 
-          footstepSound.Play();
+          accumulatedDistance += Time.deltaTime;
+
+          if (accumulatedDistance > stepDistance)
+          {
+            footstepSound.volume = Random.Range(volumeMinimum, volumeMaximum);
+            footstepSound.clip = footstepClips[Random.Range(0, footstepClips.Length)];
+
+            footstepSound.Play();
+            accumulatedDistance = 0;
+          }
+        }
+        else
+        {
           accumulatedDistance = 0;
         }
       }
-      else
-      {
-        accumulatedDistance = 0;
-      }
     }
-  }
 
+  }
 }

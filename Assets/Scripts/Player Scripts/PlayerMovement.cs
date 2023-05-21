@@ -39,10 +39,6 @@ public class PlayerMovement : MonoBehaviour
   void ApplyGravity()
   {
     verticalVelocity -= gravity * Time.deltaTime;
-
-    /*if (isGrounded())
-      HandleJump(); */
-
     moveDirection.y = verticalVelocity * Time.deltaTime;
   }
 

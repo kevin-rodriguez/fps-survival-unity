@@ -23,6 +23,8 @@ namespace KR
     private GameObject arrowPrefab, spearPrefab;
     [SerializeField]
     private Transform arrowSpearStartPosition;
+    [SerializeField]
+    private GameObject decalPlacer;
     private PlayerUI playerUI;
 
     void Awake()
@@ -147,15 +149,17 @@ namespace KR
     {
       RaycastHit hit;
 
-      print("Bullet fired!");
-
       if (Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit))
       {
         if (hit.transform.tag == Tags.ENEMY_TAG)
         {
           hit.transform.GetComponent<EnemyAnimator>().Hit();
           hit.transform.GetComponent<HealthScript>().ApplyDamage(damage);
+
+
         }
+        print("Hit " + hit.transform.name);
+        decalPlacer.GetComponent<DecalPlacer>().SpawnDecal(hit);
       }
     }
 
