@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class InputHandler : MonoBehaviour
@@ -8,7 +9,7 @@ public class InputHandler : MonoBehaviour
   public float vertical;
   public float mouseX;
   public float mouseY;
-  public bool attackInput, aimInput, sprintInput, crouchInput, jumpInput;
+  public bool attackInput, aimInput, sprintInput, crouchInput, jumpInput, pauseInput, interactInput;
 
   [Header("Flags")]
   public bool sprintFlag;
@@ -25,13 +26,14 @@ public class InputHandler : MonoBehaviour
       inputActions.PlayerMovement.Movement.performed += inputActions => movementInput = inputActions.ReadValue<Vector2>();
       inputActions.PlayerMovement.Camera.performed += i => cameraInput = i.ReadValue<Vector2>();
       inputActions.PlayerActions.Attack.performed += i => attackInput = true;
-      inputActions.PlayerActions.Attack.canceled += i => attackInput = false;
       inputActions.PlayerActions.Aim.performed += i => aimInput = true;
       inputActions.PlayerActions.Aim.canceled += i => aimInput = false;
       inputActions.PlayerActions.Crouch.performed += i => crouchInput = true;
       inputActions.PlayerActions.Sprint.performed += i => sprintInput = true;
       inputActions.PlayerActions.Sprint.canceled += i => sprintInput = false;
       inputActions.PlayerActions.Jump.performed += i => jumpInput = true;
+      inputActions.PlayerActions.Interact.performed += i => interactInput = true;
+      inputActions.UI.Cancel.performed += i => pauseInput = true;
     }
 
     inputActions.Enable();

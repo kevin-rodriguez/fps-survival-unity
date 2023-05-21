@@ -31,6 +31,8 @@ namespace KR
 
       inputHandler.TickInput(delta);
 
+
+
       mouseLook.LookAround();
 
       playerMovement.HandleJump();
@@ -47,6 +49,9 @@ namespace KR
 
       inputHandler.crouchInput = false;
       inputHandler.jumpInput = false;
+      inputHandler.attackInput = false;
+      inputHandler.pauseInput = false;
+      inputHandler.interactInput = false;
     }
 
   }

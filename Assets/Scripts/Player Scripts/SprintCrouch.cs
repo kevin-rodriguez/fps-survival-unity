@@ -67,7 +67,6 @@ namespace KR
     {
       bool playerHasStamina = sprintValue > 0f;
 
-      print(inputHandler.sprintInput);
       if (playerHasStamina && inputHandler.sprintInput)
       {
         playerMovement.speed = playerManager.isCrouching ? crouchingSprintSpeed : sprintSpeed;

@@ -37,11 +37,12 @@ public class PlayerAttack : MonoBehaviour
 
   }
 
-  // Update is called once per frame
   void Update()
   {
     WeaponShoot();
     ZoomInOut();
+
+    //Debug.DrawRay(mainCamera.transform.position, mainCamera.transform.forward * 20, Color.magenta);
   }
 
   void WeaponShoot()
@@ -102,8 +103,6 @@ public class PlayerAttack : MonoBehaviour
     bool weaponCanAim = currentWeapon.weaponAim == WeaponAim.AIM;
     bool weaponNeedAim = currentWeapon.weaponAim == WeaponAim.SELF_AIM;
 
-    print(inputHandler.aimInput);
-
     if (weaponCanAim)
     {
       if (inputHandler.aimInput)
@@ -150,6 +149,8 @@ public class PlayerAttack : MonoBehaviour
   {
     RaycastHit hit;
 
+    print("Bullet fired!");
+
     if (Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit))
     {
       if (hit.transform.tag == Tags.ENEMY_TAG)
@@ -158,5 +159,20 @@ public class PlayerAttack : MonoBehaviour
         hit.transform.GetComponent<HealthScript>().ApplyDamage(damage);
       }
     }
+  }
+
+  void OnDrawGizmos()
+  {
+    RaycastHit hit;
+    Gizmos.color = Color.blue;
+
+    if (mainCamera != null)
+    {
+      if (Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit))
+      {
+        Gizmos.DrawSphere(hit.point, 0.1f);
+      }
+    }
+
   }
 }

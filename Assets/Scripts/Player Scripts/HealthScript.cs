@@ -44,7 +44,6 @@ public class HealthScript : MonoBehaviour
 
       if (isPlayer)
       {
-        print("damaged player" + damage);
         playerStats.DisplayHealthStats(health);
       }
 
@@ -55,7 +54,6 @@ public class HealthScript : MonoBehaviour
           enemyController.chaseDistance = 100f;
         }
       }
-
 
       if (health <= 0f)
       {

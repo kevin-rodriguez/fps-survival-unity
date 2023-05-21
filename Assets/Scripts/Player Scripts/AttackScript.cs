@@ -15,11 +15,12 @@ public class AttackScript : MonoBehaviour
     if (hits.Length > 0)
     {
       GameObject firstHitObject = hits[0].gameObject;
-      //print("we touched " + hits[0].gameObject.tag);
+
       if (firstHitObject.CompareTag(Tags.PLAYER_TAG))
       {
 
         firstHitObject.GetComponent<HealthScript>().ApplyDamage(damage);
+
         gameObject.SetActive(false);
 
       }

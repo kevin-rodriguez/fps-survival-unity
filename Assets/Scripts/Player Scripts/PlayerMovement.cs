@@ -48,8 +48,6 @@ public class PlayerMovement : MonoBehaviour
 
   public void HandleJump()
   {
-    print("jump " + inputHandler.jumpInput);
-
     if (isGrounded() && inputHandler.jumpInput)
     {
       verticalVelocity = jumpForce;
