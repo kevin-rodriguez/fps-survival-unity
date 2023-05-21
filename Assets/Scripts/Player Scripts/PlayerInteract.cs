@@ -14,11 +14,13 @@ namespace KR
     private LayerMask layerMask;
     private PlayerUI playerUI;
     private InputHandler inputHandler;
+    private PlayerManager playerManager;
 
     void Start()
     {
       playerUI = GetComponent<PlayerUI>();
       inputHandler = GetComponent<InputHandler>();
+      playerManager = GetComponent<PlayerManager>();
     }
 
     // Update is called once per frame
@@ -37,10 +39,16 @@ namespace KR
 
         playerUI.UpdateText(interactable.promptMessage);
 
+        playerManager.isInteracting = true;
+
         if (inputHandler.interactInput)
         {
           interactable.BaseInteract();
         }
+      }
+      else
+      {
+        playerManager.isInteracting = false;
       }
     }
   }

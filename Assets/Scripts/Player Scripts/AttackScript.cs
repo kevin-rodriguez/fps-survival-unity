@@ -1,30 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class AttackScript : MonoBehaviour
+namespace KR
 {
-  public float damage = 2f;
-  public float radius = 1f;
-  public LayerMask layerMask;
-
-  void Update()
+  public class AttackScript : MonoBehaviour
   {
-    Collider[] hits = Physics.OverlapSphere(transform.position, radius, layerMask);
+    public float damage = 2f;
+    public float radius = 1f;
+    public LayerMask layerMask;
 
-    if (hits.Length > 0)
+    void Update()
     {
-      GameObject firstHitObject = hits[0].gameObject;
+      Collider[] hits = Physics.OverlapSphere(transform.position, radius, layerMask);
 
-      if (firstHitObject.CompareTag(Tags.PLAYER_TAG))
+      if (hits.Length > 0)
       {
+        GameObject firstHitObject = hits[0].gameObject;
 
-        firstHitObject.GetComponent<HealthScript>().ApplyDamage(damage);
+        if (firstHitObject.CompareTag(Tags.PLAYER_TAG))
+        {
 
-        gameObject.SetActive(false);
+          firstHitObject.GetComponent<HealthScript>().ApplyDamage(damage);
 
+          gameObject.SetActive(false);
+
+        }
+        //gameObject.SetActive(false);
       }
-      //gameObject.SetActive(false);
     }
   }
 }

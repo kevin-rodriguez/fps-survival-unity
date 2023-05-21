@@ -2,60 +2,74 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponManager : MonoBehaviour
+namespace KR
 {
-
-  [SerializeField]
-  private WeaponHandler[] weapons;
-  private int currentWeaponIndex;
-
-  void Start()
+  public class WeaponManager : MonoBehaviour
   {
-    currentWeaponIndex = 0;
-    weapons[currentWeaponIndex].gameObject.SetActive(true);
-  }
 
-  void Update()
-  {
-    if (Input.GetKeyDown(KeyCode.Alpha1))
-      TurnOnSelectedWeapon(0);
+    [SerializeField]
+    private WeaponHandler[] weapons;
+    private PlayerManager playerManager;
+    private int currentWeaponIndex;
 
-    if (Input.GetKeyDown(KeyCode.Alpha2))
-      TurnOnSelectedWeapon(1);
-
-
-    if (Input.GetKeyDown(KeyCode.Alpha3))
-      TurnOnSelectedWeapon(2);
-
-
-    if (Input.GetKeyDown(KeyCode.Alpha4))
-      TurnOnSelectedWeapon(3);
-
-
-    if (Input.GetKeyDown(KeyCode.Alpha5))
-      TurnOnSelectedWeapon(4);
-
-
-    if (Input.GetKeyDown(KeyCode.Alpha6))
-      TurnOnSelectedWeapon(5);
-
-    if (Input.GetKeyDown(KeyCode.Alpha7))
-      TurnOnSelectedWeapon(6);
-  }
-
-  void TurnOnSelectedWeapon(int weaponIndex)
-  {
-    if (currentWeaponIndex != weaponIndex)
+    void Start()
     {
-      weapons[currentWeaponIndex].gameObject.SetActive(false);
-      weapons[weaponIndex].gameObject.SetActive(true);
+      playerManager = GetComponent<PlayerManager>();
 
-      currentWeaponIndex = weaponIndex;
+      playerManager.isUnarmed = true;
     }
-  }
 
-  public WeaponHandler GetCurrentSelectedWeapon()
-  {
-    return weapons[currentWeaponIndex];
+    void Update()
+    {
+      if (Input.GetKeyDown(KeyCode.Alpha1))
+        TurnOnSelectedWeapon(0);
+
+      if (Input.GetKeyDown(KeyCode.Alpha2))
+        TurnOnSelectedWeapon(1);
+
+
+      if (Input.GetKeyDown(KeyCode.Alpha3))
+        TurnOnSelectedWeapon(2);
+
+
+      if (Input.GetKeyDown(KeyCode.Alpha4))
+        TurnOnSelectedWeapon(3);
+
+
+      if (Input.GetKeyDown(KeyCode.Alpha5))
+        TurnOnSelectedWeapon(4);
+
+
+      if (Input.GetKeyDown(KeyCode.Alpha6))
+        TurnOnSelectedWeapon(5);
+
+      if (Input.GetKeyDown(KeyCode.Alpha7))
+        TurnOnSelectedWeapon(6);
+    }
+
+    void TurnOnSelectedWeapon(int weaponIndex)
+    {
+      if (playerManager.isUnarmed)
+      {
+        playerManager.isUnarmed = false;
+        currentWeaponIndex = 0;
+      }
+
+      if (currentWeaponIndex != weaponIndex)
+      {
+        weapons[currentWeaponIndex].gameObject.SetActive(false);
+        weapons[weaponIndex].gameObject.SetActive(true);
+
+        currentWeaponIndex = weaponIndex;
+      }
+    }
+
+    public WeaponHandler GetCurrentSelectedWeapon()
+    {
+      if (playerManager.isUnarmed)
+        return null;
+
+      return weapons[currentWeaponIndex];
+    }
   }
 }

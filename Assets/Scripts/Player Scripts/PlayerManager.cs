@@ -17,12 +17,14 @@ namespace KR
     public bool isCrouching;
     public bool isInAir;
     public bool isGrounded;
+    public bool isUnarmed;
 
     void Start()
     {
       inputHandler = GetComponent<InputHandler>();
       playerMovement = GetComponent<PlayerMovement>();
       mouseLook = GetComponentInChildren<MouseLook>();
+      isUnarmed = true;
     }
 
     void Update()
@@ -30,8 +32,6 @@ namespace KR
       float delta = Time.deltaTime;
 
       inputHandler.TickInput(delta);
-
-
 
       mouseLook.LookAround();
 
