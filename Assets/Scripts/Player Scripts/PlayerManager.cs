@@ -18,6 +18,7 @@ namespace KR
     public bool isInAir;
     public bool isGrounded;
     public bool isUnarmed;
+    public bool isAiming;
 
     void Start()
     {

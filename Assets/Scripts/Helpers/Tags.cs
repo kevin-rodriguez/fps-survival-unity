@@ -18,9 +18,11 @@ public class AnimationTags
 {
   public const string ZOOM_IN_AIM = "ZoomIn";
   public const string ZOOM_OUT_AIM = "ZoomOut";
+  public const string ATTACK_ANIMATION = "Attack";
 
   public const string SHOOT_TRIGGER = "Shoot";
   public const string AIM_PARAMETER = "Aim";
+  public const string HOLSTER_PARAMETER = "Holster";
 
   public const string WALK_PARAMETER = "Walk";
   public const string RUN_PARAMETER = "Run";

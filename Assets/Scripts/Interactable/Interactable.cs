@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace KR
 {
-
   public abstract class Interactable : MonoBehaviour
   {
     public string promptMessage;

@@ -2,89 +2,93 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum WeaponAim
+namespace KR
 {
-  NONE,
-  SELF_AIM,
-  AIM
-}
-
-public enum WeaponFireType
-{
-  SINGLE,
-  MULTIPLE
-}
-
-public enum WeaponBulletType
-{
-  NONE,
-  ARROW,
-  SPEAR,
-  BULLET
-}
-
-public class WeaponHandler : MonoBehaviour
-{
-  private Animator animator;
-  public WeaponAim weaponAim;
-  [SerializeField]
-  private GameObject muzzleFlash;
-  [SerializeField]
-  private AudioSource shootSound, reloadSound;
-  public WeaponFireType fireType;
-  public WeaponBulletType bulletType;
-  public GameObject attackPoint;
-
-
-  void Awake()
+  public enum WeaponAim
   {
-    animator = GetComponent<Animator>();
+    NONE,
+    SELF_AIM,
+    AIM
   }
 
-  public void ShootAnimation()
+  public enum WeaponFireType
   {
-    animator.SetTrigger(AnimationTags.SHOOT_TRIGGER);
+    SINGLE,
+    MULTIPLE
   }
 
-  public void Aim(bool canAim)
+  public enum WeaponBulletType
   {
-    animator.SetBool(AnimationTags.AIM_PARAMETER, canAim);
+    NONE,
+    ARROW,
+    SPEAR,
+    BULLET
   }
 
-  public void Holster(bool shouldHoster)
+  public class WeaponHandler : MonoBehaviour
   {
-    animator.SetBool("Holster", shouldHoster);
-  }
+    private Animator animator;
+    public WeaponAim weaponAim;
+    [SerializeField]
+    private GameObject muzzleFlash;
+    public WeaponFireType fireType;
+    public int fireRate = 1;
+    public WeaponBulletType bulletType;
+    [SerializeField]
+    private AudioSource shootSound, reloadSound;
+    public GameObject attackPoint;
 
-  void TurnOnMuzzleFlash()
-  {
-    muzzleFlash.SetActive(true);
-  }
 
-  void TurnOffMuzzleFlash()
-  {
-    muzzleFlash.SetActive(false);
-  }
+    void Awake()
+    {
+      animator = GetComponent<Animator>();
+    }
 
-  public void PlayShootSound()
-  {
-    shootSound.Play();
-  }
+    public void ShootAnimation()
+    {
+      animator.SetTrigger(AnimationTags.SHOOT_TRIGGER);
+    }
 
-  void PlayReloadSound()
-  {
-    reloadSound.Play();
-  }
+    public void Aim(bool canAim)
+    {
+      animator.SetBool(AnimationTags.AIM_PARAMETER, canAim);
+    }
 
-  void TurnOnAttackPoint()
-  {
-    attackPoint.SetActive(true);
-  }
+    public void Holster(bool shouldHoster)
+    {
+      animator.SetBool(AnimationTags.HOLSTER_PARAMETER, shouldHoster);
+    }
 
-  void TurnOffAttackPoint()
-  {
-    if (attackPoint.activeInHierarchy)
-      attackPoint.SetActive(false);
-  }
+    void TurnOnMuzzleFlash()
+    {
+      muzzleFlash.SetActive(true);
+    }
 
+    void TurnOffMuzzleFlash()
+    {
+      muzzleFlash.SetActive(false);
+    }
+
+    public void PlayShootSound()
+    {
+      shootSound.Play();
+    }
+
+    void PlayReloadSound()
+    {
+      reloadSound.Play();
+    }
+
+    void TurnOnAttackPoint()
+    {
+      attackPoint.SetActive(true);
+    }
+
+    void TurnOffAttackPoint()
+    {
+      if (attackPoint.activeInHierarchy)
+        attackPoint.SetActive(false);
+    }
+
+  }
 }

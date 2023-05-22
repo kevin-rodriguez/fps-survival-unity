@@ -6,16 +6,14 @@ namespace KR
 {
   public class PlayerAttack : MonoBehaviour
   {
-
     private InputHandler inputHandler;
+    private PlayerManager playerManager;
     private WeaponManager weaponManager;
-    public float fireRate = 50f;
     private float nextTimeToFire;
     public float damage = 20f;
 
     private Animator zoomCameraAnimator;
     private bool zoomedIn;
-    private bool isAiming;
     private Camera mainCamera;
     [SerializeField]
     private GameObject crosshair;
@@ -26,6 +24,11 @@ namespace KR
     [SerializeField]
     private GameObject decalPlacer;
     private PlayerUI playerUI;
+
+    void Start()
+    {
+      playerManager = GetComponent<PlayerManager>();
+    }
 
     void Awake()
     {
@@ -41,6 +44,7 @@ namespace KR
     {
       if (weaponManager.GetCurrentSelectedWeapon() != null)
       {
+        playerManager.isAiming = inputHandler.aimInput;
         WeaponShoot();
         ZoomInOut();
       }
@@ -50,11 +54,14 @@ namespace KR
     {
       WeaponHandler currentWeapon = weaponManager.GetCurrentSelectedWeapon();
       bool isSingleFireWeapon = currentWeapon.fireType == WeaponFireType.SINGLE;
+      bool isReadyToFireAgain = Time.time > nextTimeToFire;
 
       if (isSingleFireWeapon)
       {
-        if (inputHandler.attackInput)
+        if (inputHandler.attackInput && isReadyToFireAgain)
         {
+          nextTimeToFire = Time.time + 1f / currentWeapon.fireRate;
+
           // Handle Axe Attack
           if (currentWeapon.CompareTag(Tags.AXE_TAG))
             currentWeapon.ShootAnimation();
@@ -67,17 +74,17 @@ namespace KR
           }
           else // Arrow/Spear
           {
-            if (isAiming)
+            if (playerManager.isAiming)
             {
               currentWeapon.ShootAnimation();
 
               if (currentWeapon.bulletType == WeaponBulletType.ARROW)
               {
-                ThrowErrorOrSpear(true);
+                ThrowArrowOrSpear(arrowPrefab);
               }
               else if (currentWeapon.bulletType == WeaponBulletType.SPEAR)
               {
-                ThrowErrorOrSpear(false);
+                ThrowArrowOrSpear(spearPrefab);
               }
             }
           }
@@ -85,11 +92,9 @@ namespace KR
       }
       else
       {
-        bool isReadyToFireAgain = Time.time > nextTimeToFire;
-
         if (inputHandler.attackInput && isReadyToFireAgain)
         {
-          nextTimeToFire = Time.time + 1f / fireRate;
+          nextTimeToFire = Time.time + 1f / currentWeapon.fireRate;
 
           currentWeapon.ShootAnimation();
 
@@ -109,7 +114,6 @@ namespace KR
         if (inputHandler.aimInput)
         {
           zoomCameraAnimator.Play(AnimationTags.ZOOM_IN_AIM);
-          crosshair.SetActive(false);
         }
         else
         {
@@ -118,28 +122,12 @@ namespace KR
       }
       else if (weaponNeedAim)
       {
-        if (inputHandler.aimInput)
-        {
-          currentWeapon.Aim(true);
-          isAiming = true;
-        }
-        else
-        {
-          currentWeapon.Aim(false);
-          isAiming = false;
-        }
+        currentWeapon.Aim(inputHandler.aimInput);
       }
     }
 
-    void ThrowErrorOrSpear(bool throwArrow)
+    void ThrowArrowOrSpear(GameObject projectileType)
     {
-      GameObject projectileType;
-
-      if (throwArrow)
-        projectileType = arrowPrefab;
-      else
-        projectileType = spearPrefab;
-
       GameObject projectile = Instantiate(projectileType);
       projectile.transform.position = arrowSpearStartPosition.position;
       projectile.GetComponent<ArrowSpear>().Launch(mainCamera);
@@ -155,11 +143,12 @@ namespace KR
         {
           hit.transform.GetComponent<EnemyAnimator>().Hit();
           hit.transform.GetComponent<HealthScript>().ApplyDamage(damage);
-
-
         }
-        print("Hit " + hit.transform.name);
-        decalPlacer.GetComponent<DecalController>().SpawnDecal(hit);
+        else
+        {
+          // Only displaying bullet holes for static objects for now
+          decalPlacer.GetComponent<DecalController>().SpawnDecal(hit);
+        }
       }
     }
 

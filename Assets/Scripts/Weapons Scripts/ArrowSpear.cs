@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class ArrowSpear : MonoBehaviour
 {
-
   private Rigidbody objectRigidbody;
   public float projectileSpeed = 30f;
-  public float deactivateTimer = 3f;
+  public float deactivateTimer = 5f;
   public float damage = 15f;
 
 
@@ -32,12 +31,14 @@ public class ArrowSpear : MonoBehaviour
   {
     if (gameObject.activeInHierarchy)
     {
-      gameObject.SetActive(false);
+      //TODO: Implement object pooling
+      Destroy(gameObject);
     }
   }
 
   void OnTriggerEnter(Collider target)
   {
-    //
+    // Make the projectile stick to the target
+    objectRigidbody.isKinematic = true;
   }
 }
