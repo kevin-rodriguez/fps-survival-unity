@@ -159,7 +159,7 @@ namespace KR
 
         }
         print("Hit " + hit.transform.name);
-        decalPlacer.GetComponent<DecalPlacer>().SpawnDecal(hit);
+        decalPlacer.GetComponent<DecalController>().SpawnDecal(hit);
       }
     }
 

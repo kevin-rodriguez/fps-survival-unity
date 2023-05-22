@@ -538,6 +538,7 @@ MonoBehaviour:
   arrowPrefab: {fileID: 4442122640756401601, guid: e2a5e9a53f99d4181845a5e8611755a1, type: 3}
   spearPrefab: {fileID: 4442122640756401601, guid: 958eddb6b658b402eaaa8d5e58cc42d5, type: 3}
   arrowSpearStartPosition: {fileID: 1135005525}
+  decalPlacer: {fileID: 0}
 --- !u!114 &51032528
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -606,6 +607,7 @@ MonoBehaviour:
   isCrouching: 0
   isInAir: 0
   isGrounded: 0
+  isUnarmed: 0
 --- !u!114 &1997394311
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1172,7 +1174,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4962459143598950, guid: f8a36727eb20b45369ba752e0a52dab6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.768
+      value: 0.7956
       objectReference: {fileID: 0}
     - target: {fileID: 4962459143598950, guid: f8a36727eb20b45369ba752e0a52dab6, type: 3}
       propertyPath: m_LocalRotation.w
