@@ -10,14 +10,16 @@ namespace KR
     private PlayerManager playerManager;
     private InputHandler inputHandler;
     private PlayerMovement playerMovement;
+    [Header("Movement speeds")]
     public float moveSpeed = 6f;
     public float sprintSpeed = 9f;
-    public float crouchingSprintSpeed = 7f;
+    public float crouchingSprintSpeed = 6f;
     public float crouchSpeed = 2f;
 
     private Transform lookRoot;
     private float standingHeight = 1.6f;
-    private float crouchingHeight = 1f;
+    private float crouchingHeight = 0.8f;
+    private float crouchingHeightSpeed = 20f;
 
     private PlayerFootsteps playerFootsteps;
     private float sprintVolume = 1f;
@@ -109,7 +111,6 @@ namespace KR
       {
         if (playerManager.isCrouching)
         {
-          lookRoot.localPosition = new Vector3(0f, standingHeight, 0f);
           playerMovement.speed = moveSpeed;
           playerManager.isCrouching = false;
 
@@ -119,7 +120,6 @@ namespace KR
         }
         else
         {
-          lookRoot.localPosition = new Vector3(0f, crouchingHeight, 0f);
           playerMovement.speed = crouchSpeed;
           playerManager.isCrouching = true;
 
@@ -128,6 +128,11 @@ namespace KR
           playerFootsteps.volumeMaximum = crouchVolume;
         }
       }
+
+      float cameraHeight = playerManager.isCrouching ? crouchingHeight : standingHeight;
+      Vector3 cameraPosition = lookRoot.localPosition;
+      cameraPosition.y = Mathf.SmoothStep(cameraPosition.y, cameraHeight, crouchingHeightSpeed * Time.deltaTime);
+      lookRoot.localPosition = cameraPosition;
     }
   }
 }
