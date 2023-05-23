@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,27 +31,50 @@ public class MouseLook : MonoBehaviour
 
   void Start()
   {
-    Cursor.lockState = CursorLockMode.Locked;
     inputHandler = GetComponentInParent<InputHandler>();
+  }
+
+  private void Update()
+  {
+    LockAndUnlockCursor();
+  }
+
+  private void LockAndUnlockCursor()
+  {
+    if (inputHandler.pauseInput)
+    {
+      if (Cursor.lockState == CursorLockMode.Locked)
+      {
+        Cursor.lockState = CursorLockMode.None;
+      }
+      else
+      {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+      }
+    }
   }
 
   public void LookAround()
   {
-    currentMouseLook = new Vector2(inputHandler.mouseY, inputHandler.mouseX);
 
-    lookAngles.x += currentMouseLook.x * sensitivity * -1;
-    lookAngles.y += currentMouseLook.y * sensitivity;
+    if (Cursor.lockState == CursorLockMode.Locked)
+    {
+      currentMouseLook = new Vector2(inputHandler.mouseY, inputHandler.mouseX);
 
-    // Clamp look between two angles
-    lookAngles.x = Mathf.Clamp(lookAngles.x, defaultLookLimits.x, defaultLookLimits.y);
+      lookAngles.x += currentMouseLook.x * sensitivity * -1;
+      lookAngles.y += currentMouseLook.y * sensitivity;
 
-    // Make camera rotate a little
-    currentRollAngle = Mathf.Lerp(currentRollAngle, Input.GetAxisRaw(MouseAxis.MOUSE_X)
-                                    * rollAngle, Time.deltaTime * rollSpeed);
+      // Clamp look between two angles
+      lookAngles.x = Mathf.Clamp(lookAngles.x, defaultLookLimits.x, defaultLookLimits.y);
 
-    lookRoot.localRotation = Quaternion.Euler(lookAngles.x, 0f, currentRollAngle);
-    playerRoot.localRotation = Quaternion.Euler(0f, lookAngles.y, 0f);
+      // Make camera rotate a little
+      currentRollAngle = Mathf.Lerp(currentRollAngle, Input.GetAxisRaw(MouseAxis.MOUSE_X)
+                                      * rollAngle, Time.deltaTime * rollSpeed);
+
+      lookRoot.localRotation = Quaternion.Euler(lookAngles.x, 0f, currentRollAngle);
+      playerRoot.localRotation = Quaternion.Euler(0f, lookAngles.y, 0f);
+    }
   }
-
 
 }

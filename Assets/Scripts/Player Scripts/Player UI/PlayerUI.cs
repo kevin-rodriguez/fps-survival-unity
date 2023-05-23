@@ -10,6 +10,8 @@ namespace KR
 
     [SerializeField]
     private TextMeshProUGUI promptText;
+    [SerializeField]
+    private TextMeshProUGUI bulletCountText;
 
     public void UpdateText(string promptMessage)
     {
@@ -19,6 +21,11 @@ namespace KR
     public void ClearText()
     {
       promptText.text = string.Empty;
+    }
+
+    public void UpdateBulletCount(int bulletCount)
+    {
+      bulletCountText.text = bulletCount.ToString();
     }
   }
 }
