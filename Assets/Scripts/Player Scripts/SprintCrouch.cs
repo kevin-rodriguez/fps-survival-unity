@@ -60,7 +60,7 @@ namespace KR
 
     void SetWalkingState()
     {
-      playerMovement.speed = moveSpeed;
+      playerMovement.speed = playerManager.isCrouching ? crouchSpeed : moveSpeed;
       playerFootsteps.stepDistance = walkStepDistance;
       playerFootsteps.volumeMinimum = walkVolumeMin;
       playerFootsteps.volumeMaximum = walkVolumeMax;

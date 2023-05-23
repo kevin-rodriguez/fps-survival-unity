@@ -29,7 +29,7 @@ namespace KR
       playerUI.ClearText();
 
       Ray ray = new Ray(camera.transform.position, camera.transform.forward);
-      Debug.DrawRay(ray.origin, ray.direction * distance);
+      //Debug.DrawRay(ray.origin, ray.direction * distance);
 
       RaycastHit raycastHit;
 

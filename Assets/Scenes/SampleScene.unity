@@ -278,7 +278,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 486596627}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.11, y: -5.2, z: 10.03}
+  m_LocalPosition: {x: 13.044, y: -5.2, z: 10.713}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1206,22 +1206,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cannibal
       objectReference: {fileID: 0}
-    - target: {fileID: 3778648776438985903, guid: d2efc8a2735f04760bc779e1dd0d6cd8, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3778648776439083520, guid: d2efc8a2735f04760bc779e1dd0d6cd8, type: 3}
-      propertyPath: m_Interpolate
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3778648776439083521, guid: d2efc8a2735f04760bc779e1dd0d6cd8, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7040560222335237965, guid: d2efc8a2735f04760bc779e1dd0d6cd8, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d2efc8a2735f04760bc779e1dd0d6cd8, type: 3}
 --- !u!1001 &5628931080760691422
@@ -1231,6 +1215,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 57703369, guid: 5b412b31c134345e69a4cf29ef0e9726, type: 3}
+      propertyPath: fireRate
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 770011913, guid: 5b412b31c134345e69a4cf29ef0e9726, type: 3}
+      propertyPath: crouchSpeed
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 770011915, guid: 5b412b31c134345e69a4cf29ef0e9726, type: 3}
       propertyPath: crosshair
       value: 
@@ -1251,6 +1243,10 @@ PrefabInstance:
       propertyPath: staminaBar
       value: 
       objectReference: {fileID: 1745677054}
+    - target: {fileID: 5628931080872306605, guid: 5b412b31c134345e69a4cf29ef0e9726, type: 3}
+      propertyPath: field of view
+      value: 60
+      objectReference: {fileID: 0}
     - target: {fileID: 5628931081064479193, guid: 5b412b31c134345e69a4cf29ef0e9726, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -1298,6 +1294,10 @@ PrefabInstance:
     - target: {fileID: 5628931081064479195, guid: 5b412b31c134345e69a4cf29ef0e9726, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 5628931081968715033, guid: 5b412b31c134345e69a4cf29ef0e9726, type: 3}
+      propertyPath: field of view
+      value: 45
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5b412b31c134345e69a4cf29ef0e9726, type: 3}

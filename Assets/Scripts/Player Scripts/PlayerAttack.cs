@@ -131,6 +131,7 @@ namespace KR
       GameObject projectile = Instantiate(projectileType);
       projectile.transform.position = arrowSpearStartPosition.position;
       projectile.GetComponent<ArrowSpear>().Launch(mainCamera);
+      projectile.GetComponent<ArrowSpear>().onHit += Hit;
     }
 
     void BulletFired()
@@ -139,16 +140,22 @@ namespace KR
 
       if (Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit))
       {
-        if (hit.transform.tag == Tags.ENEMY_TAG)
-        {
-          hit.transform.GetComponent<EnemyAnimator>().Hit();
-          hit.transform.GetComponent<HealthScript>().ApplyDamage(damage);
-        }
-        else
+        Hit(hit.transform);
+
+        if (hit.transform.tag != Tags.ENEMY_TAG)
         {
           // Only displaying bullet holes for static objects for now
           decalPlacer.GetComponent<DecalController>().SpawnDecal(hit);
         }
+      }
+    }
+
+    void Hit(Transform targetTransform)
+    {
+      if (targetTransform.tag == Tags.ENEMY_TAG)
+      {
+        targetTransform.GetComponent<EnemyAnimator>().Hit();
+        targetTransform.GetComponent<HealthScript>().ApplyDamage(damage);
       }
     }
 
@@ -159,7 +166,11 @@ namespace KR
 
       if (mainCamera != null)
       {
-        if (Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit))
+        // Draw line when user fire and add a sphere on the collider (for debugging purposes)
+        Ray ray = new Ray(mainCamera.transform.position, mainCamera.transform.forward);
+        Debug.DrawRay(ray.origin, ray.direction * 500);
+
+        if (Physics.Raycast(ray, out hit))
         {
           Gizmos.DrawSphere(hit.point, 0.1f);
         }
