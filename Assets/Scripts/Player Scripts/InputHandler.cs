@@ -18,6 +18,8 @@ public class InputHandler : MonoBehaviour
   Vector2 movementInput;
   Vector2 cameraInput;
 
+  private bool isAttacking;
+
   public void OnEnable()
   {
     if (inputActions == null)
@@ -26,6 +28,7 @@ public class InputHandler : MonoBehaviour
       inputActions.PlayerMovement.Movement.performed += inputActions => movementInput = inputActions.ReadValue<Vector2>();
       inputActions.PlayerMovement.Camera.performed += i => cameraInput = i.ReadValue<Vector2>();
       inputActions.PlayerActions.Attack.performed += i => attackInput = true;
+      inputActions.PlayerActions.Attack.canceled += i => attackInput = false;
       inputActions.PlayerActions.Aim.performed += i => aimInput = true;
       inputActions.PlayerActions.Aim.canceled += i => aimInput = false;
       inputActions.PlayerActions.Crouch.performed += i => crouchInput = true;

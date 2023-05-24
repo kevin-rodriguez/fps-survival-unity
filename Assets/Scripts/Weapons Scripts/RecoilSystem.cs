@@ -7,17 +7,19 @@ public class RecoilSystem : MonoBehaviour
   [Header("Recoil Settings")]
   public Vector3 recoilKick = new Vector3(-2f, 0f, 0f);
   public float recoilDuration = 0.2f;
-
   private Coroutine recoilCoroutine;
 
-  public void ApplyRecoil(Transform targetTransform)
+  [SerializeField]
+  private Transform lookRoot;
+
+  public void ApplyRecoil()
   {
     if (recoilCoroutine != null)
     {
       StopCoroutine(recoilCoroutine);
     }
 
-    recoilCoroutine = StartCoroutine(RecoilCoroutine(targetTransform));
+    recoilCoroutine = StartCoroutine(RecoilCoroutine(lookRoot.transform));
   }
 
   private IEnumerator RecoilCoroutine(Transform targetTransform)

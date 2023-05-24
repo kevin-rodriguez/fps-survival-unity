@@ -1145,9 +1145,9 @@ MonoBehaviour:
   weaponAim: 2
   muzzleFlash: {fileID: 5628197247017912877}
   fireType: 1
-  fireRate: 300
+  fireRate: 10
   bulletType: 3
-  maxBulletCount: 10
+  maxBulletCount: 30
   bulletCount: 0
   audioSource: {fileID: 57703368}
   shootSoundClip: {fileID: 8300000, guid: e0ab50aa5db40dc47a22404495c76a7b, type: 3}

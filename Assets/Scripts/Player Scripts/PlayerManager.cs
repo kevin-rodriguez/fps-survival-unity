@@ -51,7 +51,7 @@ namespace KR
 
       inputHandler.crouchInput = false;
       inputHandler.jumpInput = false;
-      inputHandler.attackInput = false;
+      //inputHandler.attackInput = false;
       inputHandler.pauseInput = false;
       inputHandler.interactInput = false;
       inputHandler.reloadInput = false;

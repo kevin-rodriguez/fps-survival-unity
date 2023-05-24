@@ -146,7 +146,7 @@ namespace KR
     {
       RaycastHit hit;
 
-      recoilSystem.ApplyRecoil(mainCamera.transform);
+      recoilSystem.ApplyRecoil();
 
       if (Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit))
       {

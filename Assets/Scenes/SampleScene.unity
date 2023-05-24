@@ -265,6 +265,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4469749203399680, guid: be6847dd39ab95f4daa2ed98e4f90564, type: 3}
   m_PrefabInstance: {fileID: 476940955}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &483210045 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5628931080805538720, guid: 5b412b31c134345e69a4cf29ef0e9726, type: 3}
+  m_PrefabInstance: {fileID: 5628931080760691422}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &486596627
 GameObject:
   m_ObjectHideFlags: 0
@@ -329,6 +334,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   recoilKick: {x: -2, y: 0, z: 0}
   recoilDuration: 0.2
+  lookRoot: {fileID: 483210045}
 --- !u!4 &548622511
 Transform:
   m_ObjectHideFlags: 0
