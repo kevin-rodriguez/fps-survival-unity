@@ -532,7 +532,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10f5d08cb6df847729bc0c8cda44961b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireRate: 2
   damage: 5
   crosshair: {fileID: 0}
   arrowPrefab: {fileID: 4442122640756401601, guid: e2a5e9a53f99d4181845a5e8611755a1, type: 3}
@@ -589,6 +588,7 @@ MonoBehaviour:
   jumpInput: 0
   pauseInput: 0
   interactInput: 0
+  reloadInput: 0
   sprintFlag: 0
 --- !u!114 &5628931080760691433
 MonoBehaviour:
@@ -608,6 +608,8 @@ MonoBehaviour:
   isInAir: 0
   isGrounded: 0
   isUnarmed: 0
+  isAiming: 0
+  isReloading: 0
 --- !u!114 &1997394311
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -638,6 +640,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   promptText: {fileID: 0}
+  bulletCountText: {fileID: 0}
 --- !u!1 &5628931081968715035
 GameObject:
   m_ObjectHideFlags: 0
@@ -1040,7 +1043,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: e0ab50aa5db40dc47a22404495c76a7b, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 0.5
   m_Pitch: 1
@@ -1140,10 +1143,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponAim: 2
   muzzleFlash: {fileID: 5628197247017912877}
-  shootSound: {fileID: 57703368}
-  reloadSound: {fileID: 0}
   fireType: 1
+  fireRate: 300
   bulletType: 3
+  maxBulletCount: 10
+  bulletCount: 0
+  audioSource: {fileID: 57703368}
+  shootSoundClip: {fileID: 8300000, guid: e0ab50aa5db40dc47a22404495c76a7b, type: 3}
+  reloadSoundClip: {fileID: 8300000, guid: 39bfcfa1ed7d29e4096754bf37057d09, type: 3}
   attackPoint: {fileID: 0}
 --- !u!1001 &5628931080823058651
 PrefabInstance:
@@ -1524,10 +1531,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponAim: 1
   muzzleFlash: {fileID: 0}
-  shootSound: {fileID: 0}
-  reloadSound: {fileID: 0}
   fireType: 0
+  fireRate: 1
   bulletType: 2
+  maxBulletCount: 10
+  bulletCount: 0
+  audioSource: {fileID: 0}
+  shootSoundClip: {fileID: 0}
+  reloadSoundClip: {fileID: 0}
   attackPoint: {fileID: 0}
 --- !u!1001 &5628931081245005187
 PrefabInstance:
@@ -1933,10 +1944,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponAim: 1
   muzzleFlash: {fileID: 0}
-  shootSound: {fileID: 0}
-  reloadSound: {fileID: 0}
   fireType: 0
+  fireRate: 1
   bulletType: 1
+  maxBulletCount: 10
+  bulletCount: 0
+  audioSource: {fileID: 0}
+  shootSoundClip: {fileID: 0}
+  reloadSoundClip: {fileID: 0}
   attackPoint: {fileID: 0}
 --- !u!4 &5628931081245134643 stripped
 Transform:
@@ -2456,10 +2471,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponAim: 2
   muzzleFlash: {fileID: 5628197248381908709}
-  shootSound: {fileID: 472537077}
-  reloadSound: {fileID: 472537078}
   fireType: 0
+  fireRate: 1
   bulletType: 3
+  maxBulletCount: 10
+  bulletCount: 0
+  audioSource: {fileID: 472537077}
+  shootSoundClip: {fileID: 8300000, guid: 92f3926ab088d854e9635995036af132, type: 3}
+  reloadSoundClip: {fileID: 0}
   attackPoint: {fileID: 0}
 --- !u!1001 &5628931081683423878
 PrefabInstance:
@@ -4322,10 +4341,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponAim: 2
   muzzleFlash: {fileID: 5628197248573027490}
-  shootSound: {fileID: 1522411598}
-  reloadSound: {fileID: 0}
   fireType: 0
+  fireRate: 1
   bulletType: 3
+  maxBulletCount: 10
+  bulletCount: 0
+  audioSource: {fileID: 1522411598}
+  shootSoundClip: {fileID: 8300000, guid: 767aed8de78f77a4996cbf5d37eb3881, type: 3}
+  reloadSoundClip: {fileID: 0}
   attackPoint: {fileID: 0}
 --- !u!1001 &5628931081747851917
 PrefabInstance:
@@ -5524,10 +5547,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponAim: 2
   muzzleFlash: {fileID: 5628197248467426686}
-  shootSound: {fileID: 1901531261}
-  reloadSound: {fileID: 0}
   fireType: 0
+  fireRate: 1
   bulletType: 3
+  maxBulletCount: 10
+  bulletCount: 0
+  audioSource: {fileID: 1901531261}
+  shootSoundClip: {fileID: 8300000, guid: d8671e3ac1c052f4882a5b880273286e, type: 3}
+  reloadSoundClip: {fileID: 0}
   attackPoint: {fileID: 0}
 --- !u!1001 &5628931082145156115
 PrefabInstance:
@@ -7345,8 +7372,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponAim: 0
   muzzleFlash: {fileID: 0}
-  shootSound: {fileID: 0}
-  reloadSound: {fileID: 0}
   fireType: 0
+  fireRate: 1
   bulletType: 0
+  maxBulletCount: 10
+  bulletCount: 0
+  audioSource: {fileID: 0}
+  shootSoundClip: {fileID: 0}
+  reloadSoundClip: {fileID: 0}
   attackPoint: {fileID: 549742748}

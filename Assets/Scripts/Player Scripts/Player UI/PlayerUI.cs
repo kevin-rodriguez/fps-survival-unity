@@ -25,7 +25,14 @@ namespace KR
 
     public void UpdateBulletCount(int bulletCount)
     {
-      bulletCountText.text = bulletCount.ToString();
+      if (bulletCount > 0)
+      {
+        bulletCountText.text = bulletCount.ToString();
+      }
+      else
+      {
+        bulletCountText.text = "--";
+      }
     }
   }
 }

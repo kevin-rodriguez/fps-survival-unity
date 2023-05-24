@@ -21,7 +21,10 @@ namespace KR
 
     void Update()
     {
-      if (playerManager.isUnarmed && !playerManager.isInteracting || playerManager.isAiming)
+      if (playerManager.isUnarmed && !playerManager.isInteracting ||
+          playerManager.isAiming ||
+          playerManager.isReloading ||
+          playerManager.isSprinting)
       {
         HideCrosshair();
         return;

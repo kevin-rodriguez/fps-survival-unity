@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -47,6 +48,7 @@ namespace KR
         playerManager.isAiming = inputHandler.aimInput;
         WeaponShoot();
         ZoomInOut();
+        HandleReload();
       }
     }
 
@@ -56,49 +58,53 @@ namespace KR
       bool isSingleFireWeapon = currentWeapon.fireType == WeaponFireType.SINGLE;
       bool isReadyToFireAgain = Time.time > nextTimeToFire;
 
-      if (isSingleFireWeapon)
+      if (currentWeapon.bulletCount > 0 && !playerManager.isReloading)
       {
-        if (inputHandler.attackInput && isReadyToFireAgain)
+
+        if (isSingleFireWeapon)
         {
-          nextTimeToFire = Time.time + 1f / currentWeapon.fireRate;
-
-          // Handle Axe Attack
-          if (currentWeapon.CompareTag(Tags.AXE_TAG))
-            currentWeapon.ShootAnimation();
-
-          // Handle Bullet Attack
-          if (currentWeapon.bulletType == WeaponBulletType.BULLET)
+          if (inputHandler.attackInput && isReadyToFireAgain)
           {
-            currentWeapon.ShootAnimation();
-            BulletFired();
-          }
-          else // Arrow/Spear
-          {
-            if (playerManager.isAiming)
-            {
+            nextTimeToFire = Time.time + 1f / currentWeapon.fireRate;
+
+            // Handle Axe Attack
+            if (currentWeapon.CompareTag(Tags.AXE_TAG))
               currentWeapon.ShootAnimation();
 
-              if (currentWeapon.bulletType == WeaponBulletType.ARROW)
+            // Handle Bullet Attack
+            if (currentWeapon.bulletType == WeaponBulletType.BULLET)
+            {
+              currentWeapon.ShootAnimation();
+              BulletFired();
+            }
+            else // Arrow/Spear
+            {
+              if (playerManager.isAiming)
               {
-                ThrowArrowOrSpear(arrowPrefab);
-              }
-              else if (currentWeapon.bulletType == WeaponBulletType.SPEAR)
-              {
-                ThrowArrowOrSpear(spearPrefab);
+                currentWeapon.ShootAnimation();
+
+                if (currentWeapon.bulletType == WeaponBulletType.ARROW)
+                {
+                  ThrowArrowOrSpear(arrowPrefab);
+                }
+                else if (currentWeapon.bulletType == WeaponBulletType.SPEAR)
+                {
+                  ThrowArrowOrSpear(spearPrefab);
+                }
               }
             }
           }
         }
-      }
-      else
-      {
-        if (inputHandler.attackInput && isReadyToFireAgain)
+        else
         {
-          nextTimeToFire = Time.time + 1f / currentWeapon.fireRate;
+          if (inputHandler.attackInput && isReadyToFireAgain)
+          {
+            nextTimeToFire = Time.time + 1f / currentWeapon.fireRate;
 
-          currentWeapon.ShootAnimation();
+            currentWeapon.ShootAnimation();
 
-          BulletFired();
+            BulletFired();
+          }
         }
       }
     }
@@ -147,6 +153,15 @@ namespace KR
           // Only displaying bullet holes for static objects for now
           decalPlacer.GetComponent<DecalController>().SpawnDecal(hit);
         }
+      }
+    }
+
+    private void HandleReload()
+    {
+      if (inputHandler.reloadInput)
+      {
+        WeaponHandler currentWeapon = weaponManager.GetCurrentSelectedWeapon();
+        currentWeapon.ReloadAnimation();
       }
     }
 

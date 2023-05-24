@@ -7,6 +7,7 @@ namespace KR
 {
   public class SprintCrouch : MonoBehaviour
   {
+    private WeaponManager weaponManager;
     private PlayerManager playerManager;
     private InputHandler inputHandler;
     private PlayerMovement playerMovement;
@@ -43,6 +44,7 @@ namespace KR
       playerStats = GetComponent<PlayerStats>();
       playerManager = GetComponent<PlayerManager>();
       inputHandler = GetComponent<InputHandler>();
+      weaponManager = GetComponent<WeaponManager>();
     }
 
     void Start()
@@ -68,6 +70,7 @@ namespace KR
     void Sprint()
     {
       bool playerHasStamina = sprintValue > 0f;
+      WeaponHandler currentWeapon = weaponManager.GetCurrentSelectedWeapon();
 
       if (playerHasStamina && inputHandler.sprintInput)
       {
@@ -102,6 +105,12 @@ namespace KR
           sprintValue = 100f;
         }
       }
+
+      if (currentWeapon)
+      {
+        currentWeapon.Holster(playerManager.isSprinting);
+      }
+
       playerStats.DisplayStaminaStats(sprintValue);
     }
 

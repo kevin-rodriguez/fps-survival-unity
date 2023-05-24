@@ -27,6 +27,7 @@ namespace KR
 
   public class WeaponHandler : MonoBehaviour
   {
+    private PlayerManager playerManager;
     private Animator animator;
     public WeaponAim weaponAim;
     [SerializeField]
@@ -37,17 +38,23 @@ namespace KR
 
     [Header("Bullets")]
     [SerializeField]
-    public int maxBulletCount = 10;
-    private int bulletCount;
+    private int maxBulletCount = 10;
+    public int bulletCount;
 
     [SerializeField]
-    private AudioSource shootSound, reloadSound;
+    private AudioSource audioSource;
+    [SerializeField]
+    private AudioClip shootSoundClip;
+    [SerializeField]
+    private AudioClip reloadSoundClip;
     public GameObject attackPoint;
     private PlayerUI playerUI;
 
     private void Start()
     {
       playerUI = FindObjectOfType<PlayerUI>();
+      playerManager = FindObjectOfType<PlayerManager>();
+      UpdateBulletCountUI();
     }
 
     void Awake()
@@ -66,29 +73,54 @@ namespace KR
 
     private void OnEnable()
     {
-
       UpdateBulletCountUI();
     }
 
     public void ShootAnimation()
     {
-      animator.SetTrigger(AnimationTags.SHOOT_TRIGGER);
-
       if (bulletCount > 0)
       {
+        animator.SetTrigger(AnimationTags.SHOOT_TRIGGER);
+
         bulletCount--;
+        UpdateBulletCountUI();
       }
-      else
-      {
-        //Reload
-        bulletCount = maxBulletCount;
-      }
-      UpdateBulletCountUI();
     }
 
     public void Aim(bool canAim)
     {
       animator.SetBool(AnimationTags.AIM_PARAMETER, canAim);
+    }
+
+    public void ReloadAnimation()
+    {
+      animator.SetTrigger(AnimationTags.RELOAD_TRIGGER);
+      PlayReloadSound();
+      playerManager.isReloading = true;
+
+      StartCoroutine(WaitForReloadAnimation());
+    }
+
+    private IEnumerator WaitForReloadAnimation()
+    {
+      while (!AnimatorHelper.IsAnimationPlaying(animator, AnimationTags.RELOAD_TRIGGER))
+      {
+        yield return null;
+      }
+
+      while (AnimatorHelper.IsAnimationPlaying(animator, AnimationTags.RELOAD_TRIGGER))
+      {
+        yield return null;
+      }
+
+      Reload();
+    }
+
+    private void Reload()
+    {
+      bulletCount = maxBulletCount;
+      UpdateBulletCountUI();
+      playerManager.isReloading = false;
     }
 
     public void Holster(bool shouldHoster)
@@ -108,12 +140,15 @@ namespace KR
 
     public void PlayShootSound()
     {
-      shootSound.Play();
+      audioSource.clip = shootSoundClip;
+      audioSource.Play();
     }
 
     void PlayReloadSound()
     {
-      reloadSound.Play();
+      //audioSource.clip = reloadSoundClip;
+      //audioSource.Play();
+      //reloadSound.Play();
     }
 
     void TurnOnAttackPoint()

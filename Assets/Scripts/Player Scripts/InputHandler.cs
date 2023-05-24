@@ -9,7 +9,7 @@ public class InputHandler : MonoBehaviour
   public float vertical;
   public float mouseX;
   public float mouseY;
-  public bool attackInput, aimInput, sprintInput, crouchInput, jumpInput, pauseInput, interactInput;
+  public bool attackInput, aimInput, sprintInput, crouchInput, jumpInput, pauseInput, interactInput, reloadInput;
 
   [Header("Flags")]
   public bool sprintFlag;
@@ -33,6 +33,7 @@ public class InputHandler : MonoBehaviour
       inputActions.PlayerActions.Sprint.canceled += i => sprintInput = false;
       inputActions.PlayerActions.Jump.performed += i => jumpInput = true;
       inputActions.PlayerActions.Interact.performed += i => interactInput = true;
+      inputActions.PlayerActions.Reload.performed += i => reloadInput = true;
       inputActions.UI.Cancel.performed += i => pauseInput = true;
     }
 

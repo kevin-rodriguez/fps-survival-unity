@@ -19,6 +19,7 @@ namespace KR
     public bool isGrounded;
     public bool isUnarmed;
     public bool isAiming;
+    public bool isReloading;
 
     void Start()
     {
@@ -53,6 +54,7 @@ namespace KR
       inputHandler.attackInput = false;
       inputHandler.pauseInput = false;
       inputHandler.interactInput = false;
+      inputHandler.reloadInput = false;
     }
 
   }
