@@ -25,6 +25,8 @@ namespace KR
     [SerializeField]
     private GameObject decalPlacer;
     private PlayerUI playerUI;
+    [SerializeField]
+    private RecoilSystem recoilSystem;
 
     void Start()
     {
@@ -143,6 +145,8 @@ namespace KR
     void BulletFired()
     {
       RaycastHit hit;
+
+      recoilSystem.ApplyRecoil(mainCamera.transform);
 
       if (Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit))
       {

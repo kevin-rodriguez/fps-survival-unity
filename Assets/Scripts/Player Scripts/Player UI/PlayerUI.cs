@@ -28,10 +28,12 @@ namespace KR
       if (bulletCount > 0)
       {
         bulletCountText.text = bulletCount.ToString();
+        bulletCountText.color = Color.white;
       }
       else
       {
         bulletCountText.text = "--";
+        bulletCountText.color = Color.red;
       }
     }
   }

@@ -347,7 +347,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5628931080872306607}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -538,6 +538,7 @@ MonoBehaviour:
   spearPrefab: {fileID: 4442122640756401601, guid: 958eddb6b658b402eaaa8d5e58cc42d5, type: 3}
   arrowSpearStartPosition: {fileID: 1135005525}
   decalPlacer: {fileID: 0}
+  recoilSystem: {fileID: 0}
 --- !u!114 &51032528
 MonoBehaviour:
   m_ObjectHideFlags: 0
