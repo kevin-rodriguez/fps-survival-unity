@@ -65,6 +65,12 @@ namespace KR
 
         decal.transform.localScale = GetRandomDecalScale();
 
+        ParticleSystem[] particleSystems = decal.GetComponentsInChildren<ParticleSystem>();
+        foreach (ParticleSystem ps in particleSystems)
+        {
+          ps.Play();
+        }
+
         decal.SetActive(true);
 
         decalsActiveInWorld.Enqueue(decal);
