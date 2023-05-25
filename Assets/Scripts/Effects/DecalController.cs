@@ -7,14 +7,24 @@ namespace KR
   {
     private const float MIN_DECAL_SIZE = 0.10f;
     private const float MAX_DECAL_SIZE = 0.18f;
+
+    [System.Serializable]
+    public class TagDecalPair
+    {
+      public string tag;
+      public GameObject decalPrefab;
+    }
+
     [SerializeField]
-    private GameObject bulletHoleDecalPrefab;
+    private List<TagDecalPair> decalPrefabs = new List<TagDecalPair>();
 
     [SerializeField]
     private int maxConcurrentDecals = 10;
 
-    private Queue<GameObject> decalsInPool;
-    private Queue<GameObject> decalsActiveInWorld;
+    private Dictionary<string, Queue<GameObject>> decalsInPool;
+    private Dictionary<string, Queue<GameObject>> decalsActiveInWorld;
+
+    //private Dictionary<string, GameObject> decalPrefabMap;
 
     private void Awake()
     {
@@ -23,23 +33,33 @@ namespace KR
 
     private void InitializeDecals()
     {
-      decalsInPool = new Queue<GameObject>();
-      decalsActiveInWorld = new Queue<GameObject>();
+      decalsInPool = new Dictionary<string, Queue<GameObject>>();
+      decalsActiveInWorld = new Dictionary<string, Queue<GameObject>>();
 
-      for (int i = 0; i < maxConcurrentDecals; i++)
+      foreach (var pair in decalPrefabs)
       {
-        InstantiateDecal();
+        string tag = pair.tag;
+        GameObject prefab = pair.decalPrefab;
+
+        decalsInPool[tag] = new Queue<GameObject>();
+        decalsActiveInWorld[tag] = new Queue<GameObject>();
+
+        for (int i = 0; i < maxConcurrentDecals; i++)
+        {
+          InstantiateDecal(tag, prefab);
+        }
       }
     }
 
-    private void InstantiateDecal()
+    private void InstantiateDecal(string tag, GameObject prefab)
     {
-      var spawned = GameObject.Instantiate(bulletHoleDecalPrefab);
-      spawned.transform.SetParent(this.transform);
+      var spawned = Instantiate(prefab);
+      spawned.transform.SetParent(transform);
 
-      decalsInPool.Enqueue(spawned);
+      decalsInPool[tag].Enqueue(spawned);
       spawned.SetActive(false);
     }
+
 
     private float GetRandomDecalSize()
     {
@@ -54,61 +74,85 @@ namespace KR
       return new Vector3(randomScaleX, randomScaleY, MIN_DECAL_SIZE);
     }
 
-    public void SpawnDecal(RaycastHit hit)
+    public void SpawnDecal(RaycastHit hit, string tag)
     {
-      GameObject decal = GetNextAvailableDecal();
-      if (decal != null)
+      if (decalPrefabs.Exists(pair => pair.tag == tag))
       {
-        decal.transform.position = hit.point + hit.normal * 0.1f;
-
-        decal.transform.rotation = Quaternion.FromToRotation(-Vector3.forward, hit.normal);
-
-        decal.transform.localScale = GetRandomDecalScale();
-
-        ParticleSystem[] particleSystems = decal.GetComponentsInChildren<ParticleSystem>();
-        foreach (ParticleSystem ps in particleSystems)
+        GameObject decalPrefab = decalPrefabs.Find(pair => pair.tag == tag).decalPrefab;
+        GameObject decal = GetNextAvailableDecal(tag);
+        if (decal != null)
         {
-          ps.Play();
+          AudioSource audioSource = decal.GetComponent<AudioSource>();
+          ParticleSystem[] particleSystems = decal.GetComponentsInChildren<ParticleSystem>();
+
+          decal.transform.position = hit.point + hit.normal * 0.1f;
+          decal.transform.rotation = Quaternion.FromToRotation(-Vector3.forward, hit.normal);
+          decal.transform.localScale = GetRandomDecalScale();
+
+          foreach (ParticleSystem ps in particleSystems)
+          {
+            ps.Play();
+          }
+
+          decal.SetActive(true);
+
+          if (audioSource)
+          {
+            audioSource.Play();
+          }
+
+          decalsActiveInWorld[tag].Enqueue(decal);
         }
-
-        decal.SetActive(true);
-
-        decalsActiveInWorld.Enqueue(decal);
+      }
+      else
+      {
+        Debug.LogWarning("No decal prefab found for tag: " + tag);
       }
     }
 
-    private GameObject GetNextAvailableDecal()
+    private GameObject GetNextAvailableDecal(string tag)
     {
-      if (decalsInPool.Count > 0)
-        return decalsInPool.Dequeue();
+      if (decalsInPool.ContainsKey(tag) && decalsInPool[tag].Count > 0)
+      {
+        return decalsInPool[tag].Dequeue();
+      }
 
-      var oldestActiveDecal = decalsActiveInWorld.Dequeue();
-      return oldestActiveDecal;
+      if (decalsActiveInWorld.ContainsKey(tag) && decalsActiveInWorld[tag].Count > 0)
+      {
+        var oldestActiveDecal = decalsActiveInWorld[tag].Dequeue();
+        return oldestActiveDecal;
+      }
+
+      return null;
     }
 
-#if UNITY_EDITOR
 
-    private void Update()
-    {
-      if (transform.childCount < maxConcurrentDecals)
-        InstantiateDecal();
-      else if (ShoudlRemoveDecal())
-        DestroyExtraDecal();
-    }
+    /*
+    #if UNITY_EDITOR
 
-    private bool ShoudlRemoveDecal()
-    {
-      return transform.childCount > maxConcurrentDecals;
-    }
+        private void Update()
+        {
+          if (transform.childCount < maxConcurrentDecals)
+            InstantiateDecal();
+          else if (ShoudlRemoveDecal())
+            DestroyExtraDecal();
+        }
 
-    private void DestroyExtraDecal()
-    {
-      if (decalsInPool.Count > 0)
-        Destroy(decalsInPool.Dequeue());
-      else if (ShoudlRemoveDecal() && decalsActiveInWorld.Count > 0)
-        Destroy(decalsActiveInWorld.Dequeue());
-    }
+        private bool ShoudlRemoveDecal()
+        {
+          return transform.childCount > maxConcurrentDecals;
+        }
 
-#endif
+        private void DestroyExtraDecal()
+        {
+          if (decalsInPool.Count > 0)
+            Destroy(decalsInPool.Dequeue());
+          else if (ShoudlRemoveDecal() && decalsActiveInWorld.Count > 0)
+            Destroy(decalsActiveInWorld.Dequeue());
+        }
+
+    #endif
+    */
+
   }
 }

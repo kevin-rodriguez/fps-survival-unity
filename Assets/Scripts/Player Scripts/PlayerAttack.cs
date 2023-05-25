@@ -151,12 +151,7 @@ namespace KR
       if (Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit))
       {
         Hit(hit.transform);
-
-        if (hit.transform.tag != Tags.ENEMY_TAG)
-        {
-          // Only displaying bullet holes for static objects for now
-          decalPlacer.GetComponent<DecalController>().SpawnDecal(hit);
-        }
+        decalPlacer.GetComponent<DecalController>().SpawnDecal(hit, hit.transform.tag);
       }
     }
 

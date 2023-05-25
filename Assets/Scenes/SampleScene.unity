@@ -332,7 +332,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd14ffa76239a421a8d74e2535d777eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recoilKick: {x: -2, y: 0, z: 0}
+  recoilKick: {x: -3, y: 0, z: 0}
   recoilDuration: 0.2
   lookRoot: {fileID: 483210045}
 --- !u!4 &548622511
@@ -404,7 +404,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de9508a5996b14a86b93e6c84a7590da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletHoleDecalPrefab: {fileID: 3909023403087756592, guid: 28ab85ce8430c49ddb6292719e9ccaae, type: 3}
+  decalPrefabs:
+  - tag: Enemy
+    decalPrefab: {fileID: 3719659491354916910, guid: 02d2edb60fa78465f99ff9cc3118be7d, type: 3}
+  - tag: StoneWall
+    decalPrefab: {fileID: 3909023403087756592, guid: 28ab85ce8430c49ddb6292719e9ccaae, type: 3}
   maxConcurrentDecals: 10
 --- !u!1 &705507993
 GameObject:
@@ -743,6 +747,14 @@ PrefabInstance:
     - target: {fileID: 1380215339369508, guid: 2ed68cc4c6f4c5d42bb123a2bc92d4d9, type: 3}
       propertyPath: m_Name
       value: SideWall
+      objectReference: {fileID: 0}
+    - target: {fileID: 1380215339369508, guid: 2ed68cc4c6f4c5d42bb123a2bc92d4d9, type: 3}
+      propertyPath: m_TagString
+      value: StoneWall
+      objectReference: {fileID: 0}
+    - target: {fileID: 1639428579509850, guid: 2ed68cc4c6f4c5d42bb123a2bc92d4d9, type: 3}
+      propertyPath: m_TagString
+      value: StoneWall
       objectReference: {fileID: 0}
     - target: {fileID: 4418791568702970, guid: 2ed68cc4c6f4c5d42bb123a2bc92d4d9, type: 3}
       propertyPath: m_RootOrder
