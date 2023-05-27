@@ -49,4 +49,6 @@ MonoBehaviour:
     decalPrefab: {fileID: 3719659491354916910, guid: 02d2edb60fa78465f99ff9cc3118be7d, type: 3}
   - tag: StoneMaterial
     decalPrefab: {fileID: 3909023403087756592, guid: 28ab85ce8430c49ddb6292719e9ccaae, type: 3}
+  - tag: WoodMaterial
+    decalPrefab: {fileID: 3917096483760347952, guid: 1ae40cfd683454d2184004cf6a9e1b71, type: 3}
   maxConcurrentDecals: 20

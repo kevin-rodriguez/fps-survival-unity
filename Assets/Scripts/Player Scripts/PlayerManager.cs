@@ -11,6 +11,7 @@ namespace KR
     PlayerMovement playerMovement;
     CharacterController characterController;
     MouseLook mouseLook;
+    private WeaponManager weaponManager;
 
     [Header("Player Flags")]
     public bool isInteracting;
@@ -28,6 +29,7 @@ namespace KR
       playerMovement = GetComponent<PlayerMovement>();
       mouseLook = GetComponentInChildren<MouseLook>();
       characterController = GetComponent<CharacterController>();
+      weaponManager = GetComponent<WeaponManager>();
       isUnarmed = true;
     }
 
@@ -53,10 +55,14 @@ namespace KR
 
       inputHandler.crouchInput = false;
       inputHandler.jumpInput = false;
-      //inputHandler.attackInput = false;
       inputHandler.pauseInput = false;
       inputHandler.interactInput = false;
       inputHandler.reloadInput = false;
+    }
+
+    public void AddWeaponToManager(WeaponHandler weapon)
+    {
+      weaponManager.AddWeapon(weapon);
     }
 
   }

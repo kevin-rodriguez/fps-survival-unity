@@ -12,6 +12,7 @@ TagManager:
   - Enemy
   - StoneMaterial
   - MetalMaterial
+  - WoodMaterial
   layers:
   - Default
   - TransparentFX

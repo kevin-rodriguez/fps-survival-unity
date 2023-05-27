@@ -8,7 +8,7 @@ namespace KR
   {
 
     [SerializeField]
-    private WeaponHandler[] weapons;
+    private List<WeaponHandler> weapons;
     private PlayerManager playerManager;
     private int currentWeaponIndex;
 
@@ -47,20 +47,30 @@ namespace KR
         TurnOnSelectedWeapon(6);
     }
 
+    public void AddWeapon(WeaponHandler weaponHandler)
+    {
+      weapons.Add(weaponHandler);
+      TurnOnSelectedWeapon(weapons.Count - 1);
+    }
+
     void TurnOnSelectedWeapon(int weaponIndex)
     {
-      if (playerManager.isUnarmed)
-      {
-        playerManager.isUnarmed = false;
-        currentWeaponIndex = 0;
-      }
 
-      if (currentWeaponIndex != weaponIndex)
+      if (weapons.Count > weaponIndex && weapons[weaponIndex] != null)
       {
-        weapons[currentWeaponIndex].gameObject.SetActive(false);
-        weapons[weaponIndex].gameObject.SetActive(true);
+        if (playerManager.isUnarmed)
+        {
+          playerManager.isUnarmed = false;
+          currentWeaponIndex = 0;
+        }
 
-        currentWeaponIndex = weaponIndex;
+        if (currentWeaponIndex != weaponIndex)
+        {
+          weapons[currentWeaponIndex].gameObject.SetActive(false);
+          weapons[weaponIndex].gameObject.SetActive(true);
+
+          currentWeaponIndex = weaponIndex;
+        }
       }
     }
 
