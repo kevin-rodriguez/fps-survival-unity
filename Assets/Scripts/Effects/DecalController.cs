@@ -24,7 +24,6 @@ namespace KR
     private Dictionary<string, Queue<GameObject>> decalsInPool;
     private Dictionary<string, Queue<GameObject>> decalsActiveInWorld;
 
-    //private Dictionary<string, GameObject> decalPrefabMap;
 
     private void Awake()
     {
@@ -74,7 +73,7 @@ namespace KR
       return new Vector3(randomScaleX, randomScaleY, MIN_DECAL_SIZE);
     }
 
-    public void SpawnDecal(RaycastHit hit, string tag)
+    public void SpawnDecal(RaycastHit hit, string tag, float sizeMultiplier = 1f)
     {
       if (decalPrefabs.Exists(pair => pair.tag == tag))
       {
@@ -87,7 +86,9 @@ namespace KR
 
           decal.transform.position = hit.point + hit.normal * 0.1f;
           decal.transform.rotation = Quaternion.FromToRotation(-Vector3.forward, hit.normal);
-          decal.transform.localScale = GetRandomDecalScale();
+          decal.transform.localScale = GetRandomDecalScale() * sizeMultiplier;
+
+          print("size " + decal.transform.localScale);
 
           foreach (ParticleSystem ps in particleSystems)
           {
@@ -127,32 +128,43 @@ namespace KR
     }
 
 
-    /*
-    #if UNITY_EDITOR
 
-        private void Update()
-        {
-          if (transform.childCount < maxConcurrentDecals)
-            InstantiateDecal();
-          else if (ShoudlRemoveDecal())
-            DestroyExtraDecal();
-        }
+    // #if UNITY_EDITOR
+    //     private void Update()
+    //     {
+    //       if (transform.childCount < maxConcurrentDecals)
+    //         foreach (var pair in decalPrefabs)
+    //         {
+    //           string tag = pair.tag;
+    //           GameObject prefab = pair.decalPrefab;
 
-        private bool ShoudlRemoveDecal()
-        {
-          return transform.childCount > maxConcurrentDecals;
-        }
+    //           decalsInPool[tag] = new Queue<GameObject>();
+    //           decalsActiveInWorld[tag] = new Queue<GameObject>();
 
-        private void DestroyExtraDecal()
-        {
-          if (decalsInPool.Count > 0)
-            Destroy(decalsInPool.Dequeue());
-          else if (ShoudlRemoveDecal() && decalsActiveInWorld.Count > 0)
-            Destroy(decalsActiveInWorld.Dequeue());
-        }
+    //           for (int i = 0; i < maxConcurrentDecals; i++)
+    //           {
+    //             InstantiateDecal(tag, prefab);
+    //           }
+    //         }
+    //       else if (ShoudlRemoveDecal(tag))
+    //         DestroyExtraDecal();
+    //     }
 
-    #endif
-    */
+    //     private bool ShoudlRemoveDecal()
+    //     {
+    //       return transform.childCount > maxConcurrentDecals;
+    //     }
+
+    //     private void DestroyExtraDecal()
+    //     {
+    //       if (decalsInPool.Count > 0)
+    //         Destroy(decalsInPool.Dequeue());
+    //       else if (ShoudlRemoveDecal() && decalsActiveInWorld.Count > 0)
+    //         Destroy(decalsActiveInWorld.Dequeue());
+    //     }
+
+    // #endif
+
 
   }
 }

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8243554d15c7f4ab0bcf7c6476afb3a4, type: 3}
+  m_Name: Hunting Rifle
+  m_EditorClassIdentifier: 
+  weaponName: Hunting Rifle
+  weaponDamage: 10
+  maxBulletCount: 5
+  shellPrefab: {fileID: 0}
+  shootSoundClip: {fileID: 8300000, guid: 767aed8de78f77a4996cbf5d37eb3881, type: 3}
+  reloadSoundClip: {fileID: 0}
+  pumpSoundClip: {fileID: 0}
+  weaponAim: 2
+  muzzleFlash: {fileID: 1870737493768950, guid: f8a36727eb20b45369ba752e0a52dab6, type: 3}
+  fireType: 0
+  fireRate: 1
+  bulletType: 3

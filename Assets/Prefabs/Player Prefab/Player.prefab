@@ -49,6 +49,37 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 128
+--- !u!1 &965190260
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 965190261}
+  m_Layer: 6
+  m_Name: ShellEjectionPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &965190261
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 965190260}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.051, y: 2.585, z: -1.1968}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5628931081591931305}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1135005524
 GameObject:
   m_ObjectHideFlags: 0
@@ -441,7 +472,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5628931081064479195}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 13.8, y: -3.818, z: 0}
+  m_LocalPosition: {x: 0, y: 1.37, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -532,7 +563,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10f5d08cb6df847729bc0c8cda44961b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 5
+  baseDamage: 1
   crosshair: {fileID: 0}
   arrowPrefab: {fileID: 4442122640756401601, guid: e2a5e9a53f99d4181845a5e8611755a1, type: 3}
   spearPrefab: {fileID: 4442122640756401601, guid: 958eddb6b658b402eaaa8d5e58cc42d5, type: 3}
@@ -1142,17 +1173,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8aa1571b99a4c42e597bfaf40e408a37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponAim: 2
-  muzzleFlash: {fileID: 5628197247017912877}
-  fireType: 1
-  fireRate: 10
-  bulletType: 3
-  maxBulletCount: 30
-  bulletCount: 0
   audioSource: {fileID: 57703368}
-  shootSoundClip: {fileID: 8300000, guid: e0ab50aa5db40dc47a22404495c76a7b, type: 3}
-  reloadSoundClip: {fileID: 8300000, guid: 39bfcfa1ed7d29e4096754bf37057d09, type: 3}
+  bulletCount: 0
   attackPoint: {fileID: 0}
+  weaponData: {fileID: 11400000, guid: d4fb55d79232b4d6ab9e9a09204b76e6, type: 2}
+  shellEjectionPoint: {fileID: 0}
 --- !u!1001 &5628931080823058651
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1214,11 +1239,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f8a36727eb20b45369ba752e0a52dab6, type: 3}
---- !u!1 &5628197247017912877 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1870737493768950, guid: f8a36727eb20b45369ba752e0a52dab6, type: 3}
-  m_PrefabInstance: {fileID: 5628931080823058651}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5628931080877744819
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1530,17 +1550,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8aa1571b99a4c42e597bfaf40e408a37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponAim: 1
-  muzzleFlash: {fileID: 0}
-  fireType: 0
-  fireRate: 1
-  bulletType: 2
-  maxBulletCount: 10
-  bulletCount: 0
   audioSource: {fileID: 0}
-  shootSoundClip: {fileID: 0}
-  reloadSoundClip: {fileID: 0}
+  bulletCount: 0
   attackPoint: {fileID: 0}
+  weaponData: {fileID: 11400000, guid: 003e1e836161849e181a50db6068a254, type: 2}
+  shellEjectionPoint: {fileID: 0}
 --- !u!1001 &5628931081245005187
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1943,17 +1957,107 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8aa1571b99a4c42e597bfaf40e408a37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponAim: 1
-  muzzleFlash: {fileID: 0}
-  fireType: 0
-  fireRate: 1
-  bulletType: 1
-  maxBulletCount: 10
+  audioSource: {fileID: 5628931080632855769}
   bulletCount: 0
-  audioSource: {fileID: 0}
-  shootSoundClip: {fileID: 0}
-  reloadSoundClip: {fileID: 0}
   attackPoint: {fileID: 0}
+  weaponData: {fileID: 11400000, guid: ea90b89396e7b4145ad95dd6be81dfd6, type: 2}
+  shellEjectionPoint: {fileID: 0}
+--- !u!82 &5628931080632855769
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5628931081244906323}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!4 &5628931081245134643 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400048, guid: 9ba50ff5806385f4da160695a7223e1d, type: 3}
@@ -2256,6 +2360,11 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 626b338dd308a9d478ff8780feca87c7, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1b1e15712c094a1409abf2c70f7e2703, type: 3}
+--- !u!4 &5628931081591931305 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400092, guid: 1b1e15712c094a1409abf2c70f7e2703, type: 3}
+  m_PrefabInstance: {fileID: 5628931081592331125}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5628931081591931375 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400026, guid: 1b1e15712c094a1409abf2c70f7e2703, type: 3}
@@ -2276,103 +2385,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 92f3926ab088d854e9635995036af132, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 0.5
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
---- !u!82 &472537078
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5628931081592298959}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 3f1ecaeaf37f1a74fb18bd1551052a1b, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 0.5
   m_Pitch: 1
@@ -2470,17 +2483,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8aa1571b99a4c42e597bfaf40e408a37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponAim: 2
-  muzzleFlash: {fileID: 5628197248381908709}
-  fireType: 0
-  fireRate: 1
-  bulletType: 3
-  maxBulletCount: 10
-  bulletCount: 0
   audioSource: {fileID: 472537077}
-  shootSoundClip: {fileID: 8300000, guid: 92f3926ab088d854e9635995036af132, type: 3}
-  reloadSoundClip: {fileID: 0}
+  bulletCount: 0
   attackPoint: {fileID: 0}
+  weaponData: {fileID: 11400000, guid: 8753c047b23e44961af34d07a46e36a6, type: 2}
+  shellEjectionPoint: {fileID: 965190261}
 --- !u!1001 &5628931081683423878
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4340,17 +4347,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8aa1571b99a4c42e597bfaf40e408a37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponAim: 2
-  muzzleFlash: {fileID: 5628197248573027490}
-  fireType: 0
-  fireRate: 1
-  bulletType: 3
-  maxBulletCount: 10
-  bulletCount: 0
   audioSource: {fileID: 1522411598}
-  shootSoundClip: {fileID: 8300000, guid: 767aed8de78f77a4996cbf5d37eb3881, type: 3}
-  reloadSoundClip: {fileID: 0}
+  bulletCount: 0
   attackPoint: {fileID: 0}
+  weaponData: {fileID: 11400000, guid: 234fc6cfb680d425fa1f951ad268b61a, type: 2}
+  shellEjectionPoint: {fileID: 0}
 --- !u!1001 &5628931081747851917
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5546,17 +5547,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8aa1571b99a4c42e597bfaf40e408a37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponAim: 2
-  muzzleFlash: {fileID: 5628197248467426686}
-  fireType: 0
-  fireRate: 1
-  bulletType: 3
-  maxBulletCount: 10
-  bulletCount: 0
   audioSource: {fileID: 1901531261}
-  shootSoundClip: {fileID: 8300000, guid: d8671e3ac1c052f4882a5b880273286e, type: 3}
-  reloadSoundClip: {fileID: 0}
+  bulletCount: 0
   attackPoint: {fileID: 0}
+  weaponData: {fileID: 11400000, guid: 8e0f8954c1fd6461d9bb68bbb9be0348, type: 2}
+  shellEjectionPoint: {fileID: 0}
 --- !u!1001 &5628931082145156115
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5618,11 +5613,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f8a36727eb20b45369ba752e0a52dab6, type: 3}
---- !u!1 &5628197248381908709 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1870737493768950, guid: f8a36727eb20b45369ba752e0a52dab6, type: 3}
-  m_PrefabInstance: {fileID: 5628931082145156115}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5628931082330302344
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5692,11 +5682,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f8a36727eb20b45369ba752e0a52dab6, type: 3}
---- !u!1 &5628197248467426686 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1870737493768950, guid: f8a36727eb20b45369ba752e0a52dab6, type: 3}
-  m_PrefabInstance: {fileID: 5628931082330302344}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5628931082352987732
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5766,11 +5751,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f8a36727eb20b45369ba752e0a52dab6, type: 3}
---- !u!1 &5628197248573027490 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1870737493768950, guid: f8a36727eb20b45369ba752e0a52dab6, type: 3}
-  m_PrefabInstance: {fileID: 5628931082352987732}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5628931082372449561
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7371,14 +7351,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8aa1571b99a4c42e597bfaf40e408a37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponAim: 0
-  muzzleFlash: {fileID: 0}
-  fireType: 0
-  fireRate: 1
-  bulletType: 0
-  maxBulletCount: 10
+  audioSource: {fileID: 1804155116}
   bulletCount: 0
-  audioSource: {fileID: 0}
-  shootSoundClip: {fileID: 0}
-  reloadSoundClip: {fileID: 0}
   attackPoint: {fileID: 549742748}
+  weaponData: {fileID: 11400000, guid: 6dc2414fd6b24410abac3f9ed2e759ab, type: 2}
+  shellEjectionPoint: {fileID: 0}

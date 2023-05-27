@@ -4,51 +4,18 @@ using UnityEngine;
 
 namespace KR
 {
-  public enum WeaponAim
-  {
-    NONE,
-    SELF_AIM,
-    AIM
-  }
-
-  public enum WeaponFireType
-  {
-    SINGLE,
-    MULTIPLE
-  }
-
-  public enum WeaponBulletType
-  {
-    NONE,
-    ARROW,
-    SPEAR,
-    BULLET
-  }
 
   public class WeaponHandler : MonoBehaviour
   {
     private PlayerManager playerManager;
     private Animator animator;
-    public WeaponAim weaponAim;
-    [SerializeField]
-    private GameObject muzzleFlash;
-    public WeaponFireType fireType;
-    public int fireRate = 1;
-    public WeaponBulletType bulletType;
-
-    [Header("Bullets")]
-    [SerializeField]
-    private int maxBulletCount = 10;
-    public int bulletCount;
-
     [SerializeField]
     private AudioSource audioSource;
-    [SerializeField]
-    private AudioClip shootSoundClip;
-    [SerializeField]
-    private AudioClip reloadSoundClip;
+    public int bulletCount;
     public GameObject attackPoint;
     private PlayerUI playerUI;
+    public WeaponData weaponData;
+    public Transform shellEjectionPoint;
 
     private void Start()
     {
@@ -60,7 +27,7 @@ namespace KR
     void Awake()
     {
       animator = GetComponent<Animator>();
-      bulletCount = maxBulletCount;
+      bulletCount = weaponData.maxBulletCount;
       UpdateBulletCountUI();
     }
     private void UpdateBulletCountUI()
@@ -118,7 +85,7 @@ namespace KR
 
     private void Reload()
     {
-      bulletCount = maxBulletCount;
+      bulletCount = weaponData.maxBulletCount;
       UpdateBulletCountUI();
       playerManager.isReloading = false;
     }
@@ -130,25 +97,49 @@ namespace KR
 
     void TurnOnMuzzleFlash()
     {
-      muzzleFlash.SetActive(true);
+      weaponData.muzzleFlash.SetActive(true);
     }
 
     void TurnOffMuzzleFlash()
     {
-      muzzleFlash.SetActive(false);
+      weaponData.muzzleFlash.SetActive(false);
     }
 
     public void PlayShootSound()
     {
-      audioSource.clip = shootSoundClip;
+      audioSource.clip = weaponData.shootSoundClip;
       audioSource.Play();
     }
 
     void PlayReloadSound()
     {
-      //audioSource.clip = reloadSoundClip;
-      //audioSource.Play();
-      //reloadSound.Play();
+      if (weaponData.reloadSoundClip != null)
+      {
+        audioSource.clip = weaponData.reloadSoundClip;
+        audioSource.Play();
+      }
+    }
+
+    void PlayPumpSound()
+    {
+      if (weaponData.pumpSoundClip != null)
+      {
+        audioSource.clip = weaponData.pumpSoundClip;
+        audioSource.Play();
+      }
+    }
+
+    void SpawnShell()
+    {
+      GameObject shell = Instantiate(weaponData.shellPrefab, shellEjectionPoint.position, shellEjectionPoint.rotation);
+
+      Rigidbody shellRigidbody = shell.GetComponent<Rigidbody>();
+      if (shellRigidbody != null)
+      {
+        Vector3 shellEjectionDirection = shellEjectionPoint.up +
+          shellEjectionPoint.forward + shellEjectionPoint.right;
+        shellRigidbody.AddForce(shellEjectionDirection * 0.2f, ForceMode.Impulse);
+      }
     }
 
     void TurnOnAttackPoint()

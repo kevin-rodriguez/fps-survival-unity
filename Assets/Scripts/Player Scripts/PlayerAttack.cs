@@ -11,7 +11,7 @@ namespace KR
     private PlayerManager playerManager;
     private WeaponManager weaponManager;
     private float nextTimeToFire;
-    public float damage = 20f;
+    public float baseDamage = 1;
 
     private Animator zoomCameraAnimator;
     private bool zoomedIn;
@@ -57,7 +57,7 @@ namespace KR
     void WeaponShoot()
     {
       WeaponHandler currentWeapon = weaponManager.GetCurrentSelectedWeapon();
-      bool isSingleFireWeapon = currentWeapon.fireType == WeaponFireType.SINGLE;
+      bool isSingleFireWeapon = currentWeapon.weaponData.fireType == WeaponFireType.SINGLE;
       bool isReadyToFireAgain = Time.time > nextTimeToFire;
 
       if (currentWeapon.bulletCount > 0 && !playerManager.isReloading)
@@ -67,14 +67,14 @@ namespace KR
         {
           if (inputHandler.attackInput && isReadyToFireAgain)
           {
-            nextTimeToFire = Time.time + 1f / currentWeapon.fireRate;
+            nextTimeToFire = Time.time + 1f / currentWeapon.weaponData.fireRate;
 
             // Handle Axe Attack
             if (currentWeapon.CompareTag(Tags.AXE_TAG))
               currentWeapon.ShootAnimation();
 
             // Handle Bullet Attack
-            if (currentWeapon.bulletType == WeaponBulletType.BULLET)
+            if (currentWeapon.weaponData.bulletType == WeaponBulletType.BULLET)
             {
               currentWeapon.ShootAnimation();
               BulletFired();
@@ -85,11 +85,11 @@ namespace KR
               {
                 currentWeapon.ShootAnimation();
 
-                if (currentWeapon.bulletType == WeaponBulletType.ARROW)
+                if (currentWeapon.weaponData.bulletType == WeaponBulletType.ARROW)
                 {
                   ThrowArrowOrSpear(arrowPrefab);
                 }
-                else if (currentWeapon.bulletType == WeaponBulletType.SPEAR)
+                else if (currentWeapon.weaponData.bulletType == WeaponBulletType.SPEAR)
                 {
                   ThrowArrowOrSpear(spearPrefab);
                 }
@@ -101,7 +101,7 @@ namespace KR
         {
           if (inputHandler.attackInput && isReadyToFireAgain)
           {
-            nextTimeToFire = Time.time + 1f / currentWeapon.fireRate;
+            nextTimeToFire = Time.time + 1f / currentWeapon.weaponData.fireRate;
 
             currentWeapon.ShootAnimation();
 
@@ -114,8 +114,8 @@ namespace KR
     void ZoomInOut()
     {
       WeaponHandler currentWeapon = weaponManager.GetCurrentSelectedWeapon();
-      bool weaponCanAim = currentWeapon.weaponAim == WeaponAim.AIM;
-      bool weaponNeedAim = currentWeapon.weaponAim == WeaponAim.SELF_AIM;
+      bool weaponCanAim = currentWeapon.weaponData.weaponAim == WeaponAim.AIM;
+      bool weaponNeedAim = currentWeapon.weaponData.weaponAim == WeaponAim.SELF_AIM;
 
       if (weaponCanAim)
       {
@@ -150,8 +150,10 @@ namespace KR
 
       if (Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit))
       {
+        WeaponHandler currentWeapon = weaponManager.GetCurrentSelectedWeapon();
+
         Hit(hit.transform);
-        decalPlacer.GetComponent<DecalController>().SpawnDecal(hit, hit.transform.tag);
+        decalPlacer.GetComponent<DecalController>().SpawnDecal(hit, hit.transform.tag, currentWeapon.weaponData.weaponDamage / 3);
       }
     }
 
@@ -166,10 +168,12 @@ namespace KR
 
     void Hit(Transform targetTransform)
     {
+      WeaponHandler currentWeapon = weaponManager.GetCurrentSelectedWeapon();
+
       if (targetTransform.tag == Tags.ENEMY_TAG)
       {
         targetTransform.GetComponent<EnemyAnimator>().Hit();
-        targetTransform.GetComponent<HealthScript>().ApplyDamage(damage);
+        targetTransform.GetComponent<HealthScript>().ApplyDamage(baseDamage * currentWeapon.weaponData.weaponDamage);
       }
     }
 
