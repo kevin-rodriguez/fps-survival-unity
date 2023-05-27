@@ -16,6 +16,10 @@ namespace KR
     private PlayerUI playerUI;
     public WeaponData weaponData;
     public Transform shellEjectionPoint;
+    [SerializeField]
+    private float shellEjectionForce = 0.2f;
+    [SerializeField]
+    private float shellEjectionRotationForce = 10f;
 
     private void Start()
     {
@@ -45,7 +49,12 @@ namespace KR
 
     public void ShootAnimation()
     {
-      if (bulletCount > 0)
+      if (weaponData.bulletType == WeaponBulletType.NONE)
+      {
+        print("hit with axe");
+        animator.SetTrigger(AnimationTags.SHOOT_TRIGGER);
+      }
+      else if (bulletCount > 0)
       {
         animator.SetTrigger(AnimationTags.SHOOT_TRIGGER);
 
@@ -138,7 +147,12 @@ namespace KR
       {
         Vector3 shellEjectionDirection = shellEjectionPoint.up +
           shellEjectionPoint.forward + shellEjectionPoint.right;
-        shellRigidbody.AddForce(shellEjectionDirection * 0.2f, ForceMode.Impulse);
+
+        // Apply force to move the shell away from the chamber
+        shellRigidbody.AddForce(shellEjectionDirection * shellEjectionForce, ForceMode.Impulse);
+
+        // Apply torque to give the shell some rotation
+        shellRigidbody.AddRelativeTorque(Vector3.up * shellEjectionRotationForce, ForceMode.Impulse);
       }
     }
 

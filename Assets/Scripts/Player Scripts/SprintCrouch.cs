@@ -72,7 +72,7 @@ namespace KR
       bool playerHasStamina = sprintValue > 0f;
       WeaponHandler currentWeapon = weaponManager.GetCurrentSelectedWeapon();
 
-      if (playerHasStamina && inputHandler.sprintInput)
+      if (playerHasStamina && inputHandler.sprintInput && playerMovement.isPlayerMoving())
       {
         playerMovement.speed = playerManager.isCrouching ? crouchingSprintSpeed : sprintSpeed;
         playerFootsteps.stepDistance = sprintStepDistance;
@@ -106,7 +106,7 @@ namespace KR
         }
       }
 
-      if (currentWeapon)
+      if (currentWeapon && currentWeapon.weaponData.bulletType == WeaponBulletType.BULLET)
       {
         currentWeapon.Holster(playerManager.isSprinting);
       }

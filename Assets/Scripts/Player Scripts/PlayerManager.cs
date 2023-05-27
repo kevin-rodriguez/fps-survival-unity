@@ -9,6 +9,7 @@ namespace KR
   {
     InputHandler inputHandler;
     PlayerMovement playerMovement;
+    CharacterController characterController;
     MouseLook mouseLook;
 
     [Header("Player Flags")]
@@ -26,6 +27,7 @@ namespace KR
       inputHandler = GetComponent<InputHandler>();
       playerMovement = GetComponent<PlayerMovement>();
       mouseLook = GetComponentInChildren<MouseLook>();
+      characterController = GetComponent<CharacterController>();
       isUnarmed = true;
     }
 

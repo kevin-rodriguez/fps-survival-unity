@@ -28,12 +28,19 @@ public class PlayerMovement : MonoBehaviour
 
     ApplyGravity();
 
+    print(moveDirection);
+
     characterController.Move(moveDirection);
   }
 
   bool isGrounded()
   {
     return characterController.isGrounded;
+  }
+
+  public bool isPlayerMoving()
+  {
+    return characterController.velocity.sqrMagnitude > 0;
   }
 
   void ApplyGravity()

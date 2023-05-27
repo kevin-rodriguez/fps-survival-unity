@@ -15,7 +15,7 @@ MonoBehaviour:
   weaponName: Revolver
   weaponDamage: 8
   maxBulletCount: 8
-  shellPrefab: {fileID: 0}
+  shellPrefab: {fileID: 1862761235795008, guid: 26336ac35f7714438bd5cd324515b290, type: 3}
   shootSoundClip: {fileID: 8300000, guid: d8671e3ac1c052f4882a5b880273286e, type: 3}
   reloadSoundClip: {fileID: 0}
   pumpSoundClip: {fileID: 0}

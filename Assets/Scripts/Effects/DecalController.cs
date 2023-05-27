@@ -88,8 +88,6 @@ namespace KR
           decal.transform.rotation = Quaternion.FromToRotation(-Vector3.forward, hit.normal);
           decal.transform.localScale = GetRandomDecalScale() * sizeMultiplier;
 
-          print("size " + decal.transform.localScale);
-
           foreach (ParticleSystem ps in particleSystems)
           {
             ps.Play();
