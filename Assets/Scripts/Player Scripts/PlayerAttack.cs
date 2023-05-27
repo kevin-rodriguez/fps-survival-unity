@@ -153,7 +153,8 @@ namespace KR
         WeaponHandler currentWeapon = weaponManager.GetCurrentSelectedWeapon();
 
         Hit(hit.transform);
-        decalPlacer.GetComponent<DecalController>().SpawnDecal(hit, hit.transform.tag, currentWeapon.weaponData.weaponDamage / 3);
+
+        decalPlacer.GetComponent<DecalController>().SpawnDecal(hit, hit.transform.tag, currentWeapon.weaponData.weaponDamage / 3, hit.transform.CompareTag(Tags.ENEMY_TAG));
       }
     }
 

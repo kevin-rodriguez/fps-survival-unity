@@ -35,7 +35,6 @@ namespace KR
 
     [Header("Sounds")]
     public AudioClip shootSoundClip;
-    public AudioClip reloadSoundClip;
     public AudioClip pumpSoundClip;
 
     [Header("Aim Settings")]

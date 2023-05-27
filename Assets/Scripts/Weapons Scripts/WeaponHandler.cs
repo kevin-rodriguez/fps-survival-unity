@@ -68,10 +68,11 @@ namespace KR
       animator.SetBool(AnimationTags.AIM_PARAMETER, canAim);
     }
 
+    #region Reload
     public void ReloadAnimation()
     {
       animator.SetTrigger(AnimationTags.RELOAD_TRIGGER);
-      PlayReloadSound();
+
       playerManager.isReloading = true;
 
       StartCoroutine(WaitForReloadAnimation());
@@ -92,12 +93,21 @@ namespace KR
       Reload();
     }
 
+
+    void PlayReloadSound(AudioClip audioClip)
+    {
+      audioSource.clip = audioClip;
+      audioSource.Play();
+    }
+
     private void Reload()
     {
       bulletCount = weaponData.maxBulletCount;
       UpdateBulletCountUI();
       playerManager.isReloading = false;
     }
+
+    #endregion
 
     public void Holster(bool shouldHoster)
     {
@@ -118,15 +128,6 @@ namespace KR
     {
       audioSource.clip = weaponData.shootSoundClip;
       audioSource.Play();
-    }
-
-    void PlayReloadSound()
-    {
-      if (weaponData.reloadSoundClip != null)
-      {
-        audioSource.clip = weaponData.reloadSoundClip;
-        audioSource.Play();
-      }
     }
 
     void PlayPumpSound()
@@ -153,7 +154,16 @@ namespace KR
 
         // Apply torque to give the shell some rotation
         shellRigidbody.AddRelativeTorque(Vector3.up * shellEjectionRotationForce, ForceMode.Impulse);
+
+        StartCoroutine(DespawnShell(shell));
       }
+    }
+
+    IEnumerator DespawnShell(GameObject shell)
+    {
+      yield return new WaitForSeconds(10f);
+
+      Destroy(shell);
     }
 
     void TurnOnAttackPoint()

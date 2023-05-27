@@ -17,8 +17,7 @@ MonoBehaviour:
   maxBulletCount: 8
   shellPrefab: {fileID: 1130937700736388, guid: 2866f68c09e234de18fed12c8f3d0d21, type: 3}
   shootSoundClip: {fileID: 8300000, guid: 92f3926ab088d854e9635995036af132, type: 3}
-  reloadSoundClip: {fileID: 8300000, guid: 3f1ecaeaf37f1a74fb18bd1551052a1b, type: 3}
-  pumpSoundClip: {fileID: 8300000, guid: 3f1ecaeaf37f1a74fb18bd1551052a1b, type: 3}
+  pumpSoundClip: {fileID: 8300000, guid: 1613cc0e7699f7d4b80400e6d112878e, type: 3}
   weaponAim: 2
   muzzleFlash: {fileID: 1870737493768950, guid: f8a36727eb20b45369ba752e0a52dab6, type: 3}
   fireType: 0

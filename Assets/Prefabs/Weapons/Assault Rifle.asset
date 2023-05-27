@@ -13,11 +13,10 @@ MonoBehaviour:
   m_Name: Assault Rifle
   m_EditorClassIdentifier: 
   weaponName: Assault Rifle
-  weaponDamage: 2
+  weaponDamage: 4
   maxBulletCount: 30
   shellPrefab: {fileID: 0}
   shootSoundClip: {fileID: 8300000, guid: e0ab50aa5db40dc47a22404495c76a7b, type: 3}
-  reloadSoundClip: {fileID: 8300000, guid: a8f9345aa83de1f4f8c280dc9b9e109f, type: 3}
   pumpSoundClip: {fileID: 0}
   weaponAim: 2
   muzzleFlash: {fileID: 1870737493768950, guid: f8a36727eb20b45369ba752e0a52dab6, type: 3}

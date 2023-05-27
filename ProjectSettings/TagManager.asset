@@ -10,7 +10,8 @@ TagManager:
   - FP Camera
   - Arrow
   - Enemy
-  - StoneWall
+  - StoneMaterial
+  - MetalMaterial
   layers:
   - Default
   - TransparentFX
