@@ -2,20 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 namespace KR
 {
-  public class Detonator : Interactable
+  public class WeaponPickup : Interactable
   {
-    [SerializeField]
-    private GameObject fireObject;
-    private bool isActive;
+
+    public GameObject weaponPrefab;
 
     protected override void Interact(PlayerInteract playerInteract)
     {
       base.Interact(playerInteract);
 
-      isActive = !isActive;
-      fireObject.SetActive(isActive);
+      print("Picked up " + weaponPrefab.name);
+
+      playerInteract.PickupWeapon(weaponPrefab);
+
+      //Destroy(gameObject);
+
     }
   }
 }

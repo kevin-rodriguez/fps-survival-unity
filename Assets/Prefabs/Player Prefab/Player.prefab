@@ -690,6 +690,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 512
+  weaponParent: {fileID: 5628931080293328961}
 --- !u!114 &1997394312
 MonoBehaviour:
   m_ObjectHideFlags: 0

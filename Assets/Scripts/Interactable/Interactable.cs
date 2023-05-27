@@ -8,12 +8,12 @@ namespace KR
   {
     public string promptMessage;
 
-    public void BaseInteract()
+    public void BaseInteract(PlayerInteract playerInteract)
     {
-      Interact();
+      Interact(playerInteract);
     }
 
-    protected virtual void Interact()
+    protected virtual void Interact(PlayerInteract playerInteract)
     {
       // Overwrite it
     }

@@ -16,6 +16,9 @@ namespace KR
     private InputHandler inputHandler;
     private PlayerManager playerManager;
 
+    [SerializeField]
+    private Transform weaponParent;
+
     void Start()
     {
       playerUI = GetComponent<PlayerUI>();
@@ -43,13 +46,22 @@ namespace KR
 
         if (inputHandler.interactInput)
         {
-          interactable.BaseInteract();
+          interactable.BaseInteract(this);
         }
       }
       else
       {
         playerManager.isInteracting = false;
       }
+    }
+
+    public void PickupWeapon(GameObject weaponPrefab)
+    {
+      GameObject weaponInstance = Instantiate(weaponPrefab, weaponParent);
+
+      weaponInstance.SetActive(true);
+
+      // Store the weapon instance in the player's inventory or equipped weapon reference
     }
   }
 }

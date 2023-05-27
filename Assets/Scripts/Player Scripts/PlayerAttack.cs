@@ -60,7 +60,7 @@ namespace KR
       bool isSingleFireWeapon = currentWeapon.weaponData.fireType == WeaponFireType.SINGLE;
       bool isReadyToFireAgain = Time.time > nextTimeToFire;
 
-      if (currentWeapon.bulletCount > 0 && !playerManager.isReloading)
+      if (currentWeapon.bulletCount > 0 && !playerManager.isReloading && !playerManager.isSprinting)
       {
 
         if (isSingleFireWeapon)
