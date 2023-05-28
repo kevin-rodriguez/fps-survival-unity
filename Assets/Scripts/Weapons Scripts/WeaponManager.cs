@@ -7,10 +7,15 @@ namespace KR
   public class WeaponManager : MonoBehaviour
   {
 
-    [SerializeField]
-    private List<WeaponHandler> weapons;
+    [SerializeField] 
+    private WeaponHandler primaryWeapon;
+
+    [SerializeField] 
+    private WeaponHandler secondaryWeapon;
+    
     private PlayerManager playerManager;
-    private int currentWeaponIndex;
+    
+    public WeaponHandler currentWeapon;
 
     void Start()
     {
@@ -22,56 +27,30 @@ namespace KR
     void Update()
     {
       if (Input.GetKeyDown(KeyCode.Alpha1))
-        TurnOnSelectedWeapon(0);
+        HandleWeaponChange(primaryWeapon);
 
       if (Input.GetKeyDown(KeyCode.Alpha2))
-        TurnOnSelectedWeapon(1);
-
-
-      if (Input.GetKeyDown(KeyCode.Alpha3))
-        TurnOnSelectedWeapon(2);
-
-
-      if (Input.GetKeyDown(KeyCode.Alpha4))
-        TurnOnSelectedWeapon(3);
-
-
-      if (Input.GetKeyDown(KeyCode.Alpha5))
-        TurnOnSelectedWeapon(4);
-
-
-      if (Input.GetKeyDown(KeyCode.Alpha6))
-        TurnOnSelectedWeapon(5);
-
-      if (Input.GetKeyDown(KeyCode.Alpha7))
-        TurnOnSelectedWeapon(6);
+        HandleWeaponChange(secondaryWeapon);
     }
 
-    public void AddWeapon(WeaponHandler weaponHandler)
+    public void AddWeapon(WeaponHandler weaponToAdd)
     {
-      weapons.Add(weaponHandler);
-      TurnOnSelectedWeapon(weapons.Count - 1);
-    }
-
-    void TurnOnSelectedWeapon(int weaponIndex)
-    {
-
-      if (weapons.Count > weaponIndex && weapons[weaponIndex] != null)
+      if (playerManager.isUnarmed)
       {
-        if (playerManager.isUnarmed)
-        {
-          playerManager.isUnarmed = false;
-          currentWeaponIndex = 0;
-        }
-
-        if (currentWeaponIndex != weaponIndex)
-        {
-          weapons[currentWeaponIndex].gameObject.SetActive(false);
-          weapons[weaponIndex].gameObject.SetActive(true);
-
-          currentWeaponIndex = weaponIndex;
-        }
+        playerManager.isUnarmed = false;
       }
+      
+      if (currentWeapon != null)
+      {
+        Destroy(currentWeapon.gameObject);
+      }
+
+      currentWeapon = weaponToAdd;
+    }
+    
+    void HandleWeaponChange(WeaponHandler weapon)
+    {
+      
     }
 
     public WeaponHandler GetCurrentSelectedWeapon()
@@ -79,7 +58,8 @@ namespace KR
       if (playerManager.isUnarmed)
         return null;
 
-      return weapons[currentWeaponIndex];
+      return currentWeapon;
+      //return weapons[currentWeapon];
     }
   }
 }

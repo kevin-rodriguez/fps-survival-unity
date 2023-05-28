@@ -21,6 +21,7 @@ namespace KR
     private float smoothWeight = 0.4f;
     [SerializeField]
     private float rollAngle = 0.5f;
+    [SerializeField]
     private float rollSpeed = 3f;
 
     [SerializeField]
