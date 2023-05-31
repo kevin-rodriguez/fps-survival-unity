@@ -17,10 +17,10 @@ MonoBehaviour:
   maxBulletCount: 5
   shellPrefab: {fileID: 0}
   shootSoundClip: {fileID: 8300000, guid: 767aed8de78f77a4996cbf5d37eb3881, type: 3}
-  reloadSoundClip: {fileID: 0}
   pumpSoundClip: {fileID: 0}
   weaponAim: 2
   muzzleFlash: {fileID: 1870737493768950, guid: f8a36727eb20b45369ba752e0a52dab6, type: 3}
   fireType: 0
   fireRate: 1
   bulletType: 3
+  weaponIcon: {fileID: 21300000, guid: e058c53f3bf94ee4fa8725eafbdbe884, type: 3}

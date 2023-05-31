@@ -23,3 +23,4 @@ MonoBehaviour:
   fireType: 1
   fireRate: 10
   bulletType: 3
+  weaponIcon: {fileID: 21300000, guid: 0a35a4432da3eb14783b94bcf1ada1c2, type: 3}

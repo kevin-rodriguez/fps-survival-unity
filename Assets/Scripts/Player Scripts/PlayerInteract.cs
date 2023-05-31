@@ -59,8 +59,6 @@ namespace KR
     {
       GameObject weaponInstance = Instantiate(weaponPrefab, weaponParent);
 
-      weaponInstance.SetActive(true);
-
       playerManager.AddWeaponToManager(weaponInstance.GetComponent<WeaponHandler>());
       // Store the weapon instance in the player's inventory or equipped weapon reference
     }

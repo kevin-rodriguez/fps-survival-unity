@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,14 @@ namespace KR
     private TextMeshProUGUI promptText;
     [SerializeField]
     private TextMeshProUGUI bulletCountText;
+    private WeaponManager weaponManager;
+    [SerializeField] 
+    private WeaponInventorySlot weaponInventorySlot;
+
+    private void Start()
+    {
+      weaponManager = GetComponent<WeaponManager>();
+    }
 
     public void UpdateText(string promptMessage)
     {
@@ -34,6 +43,19 @@ namespace KR
       {
         bulletCountText.text = "--";
         bulletCountText.color = Color.red;
+      }
+    }
+
+    private void Update()
+    {
+      UpdateInventorySlot();
+    }
+
+    public void UpdateInventorySlot()
+    {
+      foreach (WeaponHandler weapon in weaponManager.weaponSlots)
+      {
+        weaponInventorySlot.AddItem(weapon);
       }
     }
   }

@@ -265,6 +265,7 @@ MonoBehaviour:
   smoothSteps: 10
   smoothWeight: 0.4
   rollAngle: 0.5
+  rollSpeed: 3
   defaultLookLimits: {x: -70, y: 80}
 --- !u!1 &5628931080872306607
 GameObject:
@@ -456,7 +457,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a4e39235fe154aaf9d988de00ba019f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapons: []
+  maxWeaponSlots: 2
+  weaponSlots: []
+  currentWeapon: {fileID: 0}
 --- !u!114 &770011915
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -580,6 +583,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   promptText: {fileID: 0}
   bulletCountText: {fileID: 0}
+  weaponInventorySlot: {fileID: 0}
 --- !u!1 &5628931081968715035
 GameObject:
   m_ObjectHideFlags: 0

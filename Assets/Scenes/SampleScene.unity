@@ -929,6 +929,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 21f4ee7b875c5614bae545ccd6c7652e, type: 3}
+--- !u!114 &1385597704 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1385597704, guid: b04475adc2d814742b58b9f5c00953cf, type: 3}
+  m_PrefabInstance: {fileID: 863405367653162844}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c2a7a6b2d6584a4594ce72bc2b47296, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1537775775
 GameObject:
   m_ObjectHideFlags: 0
@@ -1552,6 +1563,10 @@ PrefabInstance:
       propertyPath: bulletCountText
       value: 
       objectReference: {fileID: 203451364}
+    - target: {fileID: 1997394312, guid: 5b412b31c134345e69a4cf29ef0e9726, type: 3}
+      propertyPath: weaponInventorySlot
+      value: 
+      objectReference: {fileID: 1385597704}
     - target: {fileID: 3096370612640444915, guid: 5b412b31c134345e69a4cf29ef0e9726, type: 3}
       propertyPath: healthBar
       value: 

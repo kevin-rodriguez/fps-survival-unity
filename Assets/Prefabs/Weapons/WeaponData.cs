@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace KR
 {
@@ -47,5 +48,8 @@ namespace KR
 
     [Header("Bullet Settings")]
     public WeaponBulletType bulletType;
+
+    [Header("Icon")] 
+    public Sprite weaponIcon;
   }
 }

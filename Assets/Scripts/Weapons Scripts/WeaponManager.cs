@@ -6,12 +6,8 @@ namespace KR
 {
   public class WeaponManager : MonoBehaviour
   {
-
-    [SerializeField] 
-    private WeaponHandler primaryWeapon;
-
-    [SerializeField] 
-    private WeaponHandler secondaryWeapon;
+    [SerializeField] private int maxWeaponSlots = 2;
+    public List<WeaponHandler> weaponSlots;
     
     private PlayerManager playerManager;
     
@@ -26,28 +22,47 @@ namespace KR
 
     void Update()
     {
-      if (Input.GetKeyDown(KeyCode.Alpha1))
-        HandleWeaponChange(primaryWeapon);
+      //if (Input.GetKeyDown(KeyCode.Alpha1))
+        //HandleWeaponChange(primaryWeapon);
 
-      if (Input.GetKeyDown(KeyCode.Alpha2))
-        HandleWeaponChange(secondaryWeapon);
+      //if (Input.GetKeyDown(KeyCode.Alpha2))
+        //HandleWeaponChange(secondaryWeapon);
     }
 
-    public void AddWeapon(WeaponHandler weaponToAdd)
+    public void AddWeapon(WeaponHandler weapon)
     {
       if (playerManager.isUnarmed)
       {
         playerManager.isUnarmed = false;
       }
-      
-      if (currentWeapon != null)
-      {
-        Destroy(currentWeapon.gameObject);
-      }
 
-      currentWeapon = weaponToAdd;
+      if (weaponSlots.Count < maxWeaponSlots)
+      {
+        weaponSlots.Add((weapon));
+      }
+      else
+      {
+        Destroy(weapon.gameObject);
+      }
+      
     }
-    
+
+    /*public bool EquipWeapon(WeaponHandler weapon)
+    {
+     
+      
+      
+    }*/
+
+    public void UnequipWeapon(WeaponHandler weapon)
+    {
+      if (weaponSlots.Contains(weapon))
+      {
+        weaponSlots.Remove(weapon);
+        Debug.Log("Unequipped " + weapon.weaponData.name);
+      }
+    }
+
     void HandleWeaponChange(WeaponHandler weapon)
     {
       
@@ -55,11 +70,9 @@ namespace KR
 
     public WeaponHandler GetCurrentSelectedWeapon()
     {
-      if (playerManager.isUnarmed)
-        return null;
-
-      return currentWeapon;
-      //return weapons[currentWeapon];
+      return playerManager.isUnarmed ? null : currentWeapon;
     }
+
+    
   }
 }
